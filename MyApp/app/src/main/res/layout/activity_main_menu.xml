@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainMenu"
+    tools:openDrawer="start">
+    <!--    tools:openDrawer="start"-->
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/mapFrame"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomMenu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintVertical_bias="0.133">
+
+        </FrameLayout>
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/imageButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="136dp"-->
+<!--            android:layout_marginEnd="160dp"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            android:hapticFeedbackEnabled="false"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.496"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/toolbar"-->
+<!--            app:srcCompat="@drawable/bmw"-->
+<!--            tools:ignore="MissingConstraints" />-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/imageButton2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="84dp"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/imageButton8"-->
+<!--            app:layout_constraintHorizontal_bias="0.4"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/imageButton8"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/imageButton8"-->
+<!--            app:srcCompat="@drawable/audi_logo_2016"-->
+<!--            tools:ignore="MissingConstraints" />-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/imageButton7"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="84dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/imageButton2"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/imageButton"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/imageButton"-->
+<!--            app:srcCompat="@drawable/kia_4" />-->
+
+<!--        <ImageButton-->
+<!--            android:id="@+id/imageButton8"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/imageButton"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/imageButton"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/imageButton"-->
+<!--            app:srcCompat="@drawable/mercedes_benz" />-->
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimeDark"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/main_menu_toolbar" />
+
+        <TextView
+            android:id="@+id/titleOfToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="250dp"
+            android:text="CarZone"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimeDark"
+            app:itemIconTint="@drawable/bottom_menu_colors"
+            app:itemTextColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_menu" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_menu"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/white"
+        app:headerLayout="@layout/header"
+        app:itemIconTint="@color/colorPrimeDark"
+        app:itemTextColor="@color/colorPrimeDark"
+        app:menu="@menu/nav_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

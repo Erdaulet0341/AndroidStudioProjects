@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "838466812393",
+    "project_id": "mylapusers",
+    "storage_bucket": "mylapusers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838466812393:android:6efaee17459ef7c2987378",
+        "android_client_info": {
+          "package_name": "com.example.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "838466812393-v8m1nhvi9e3l7ehdb4h1632pkdideqsg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe5daP7cI3QGjVwxLKb9UyVOqf_oM_zJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "838466812393-v8m1nhvi9e3l7ehdb4h1632pkdideqsg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

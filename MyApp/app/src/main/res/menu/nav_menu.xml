@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigation_view">
+
+    <item android:title="Profile" android:id="@+id/profile" android:icon="@drawable/baseline_person"/>
+    <item android:title="My liked cars" android:id="@+id/likeCars" android:icon="@drawable/nav_like"/>
+    <item android:title="Setting" android:id="@+id/setting" android:icon="@drawable/nav_settings"/>
+    <item android:title="Log out" android:id="@+id/logout" android:icon="@drawable/nav_logout"/>
+
+</menu>

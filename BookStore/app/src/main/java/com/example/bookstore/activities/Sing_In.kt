@@ -29,12 +29,13 @@ class Sing_In : AppCompatActivity() {
                 db.getDao().getAllUser().asLiveData().observe(this){list ->
                     var check:Boolean = true
                     list.forEach{
-                        if(email.equals(it.email) && pass.equals(pass)){
+                        if(email.equals(it.email) && pass.equals(it.password)){
                             Log.i(TAG, "${it.password} and ${pass}")
 
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                             check = true
+                            Toast.makeText(this, "Lon Ip Successful", Toast.LENGTH_SHORT).show()
                             return@forEach
                         }
                         else{
@@ -42,7 +43,7 @@ class Sing_In : AppCompatActivity() {
                         }
                     }
                     if(!check){
-                        Toast.makeText(this, "Incorrect data!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Incorrect password or email!", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

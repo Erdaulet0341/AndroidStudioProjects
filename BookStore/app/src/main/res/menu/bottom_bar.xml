@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu"
+        android:title=""
+        android:icon="@drawable/menu_30"
+        android:orderInCategory="1"/>
+    <item
+        android:title=""
+        android:id="@+id/topBooks"
+        android:icon="@drawable/menu_book_30"/>
+
+</menu>

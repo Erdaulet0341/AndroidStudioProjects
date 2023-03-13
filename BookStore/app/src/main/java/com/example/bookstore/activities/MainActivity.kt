@@ -15,6 +15,7 @@ import com.example.bookstore.databinding.ActivityMainBinding
 import com.example.bookstore.db.bookUsers.userDb
 import com.example.bookstore.fragments.About
 import com.example.bookstore.fragments.Profile
+import com.example.bookstore.fragments.Settings
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -57,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.setting ->{
                     Toast.makeText(this, "setting", Toast.LENGTH_SHORT).show()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment, Settings.newInstance()).commit()
                 }
                 R.id.about ->{
                     supportActionBar?.title = "About App"
@@ -65,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.logout ->{
                     Toast.makeText(this, "logout", Toast.LENGTH_SHORT).show()
+                    finish()
                 }
             }
             true

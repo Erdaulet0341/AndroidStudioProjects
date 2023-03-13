@@ -15,4 +15,7 @@ interface userDao {
     @Query("select * from users")
     fun getAllUser(): Flow<List<User>>
 
+    @Query("update users set name=:Sname, surname=:Ssurname, email=:Semail, password=:sPass, confPass=:SconfPass where id like :Sid")
+    fun updateUser(Sid:Int, Sname:String, Ssurname:String, Semail:String, sPass:String, SconfPass:String)
+
 }

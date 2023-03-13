@@ -27,7 +27,7 @@
             android:id="@+id/nameProfile"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:text="abdu"
+            android:text="TextView"
             android:textColor="@color/black"
             android:textSize="17sp"
             android:textStyle="bold|italic"

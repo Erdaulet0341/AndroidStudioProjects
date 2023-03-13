@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.asLiveData
-import com.example.bookstore.R
 import com.example.bookstore.databinding.SingInBinding
 import com.example.bookstore.db.bookUsers.userDb
 
@@ -18,8 +17,8 @@ class Sing_In : AppCompatActivity() {
         binding = SingInBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.title = "Login"
-
         val db = userDb.getUserDb(this)
+
 
         binding.singInBtn.setOnClickListener {
             var email = binding.singInEmail.text.toString()
@@ -31,7 +30,6 @@ class Sing_In : AppCompatActivity() {
                     list.forEach{
                         if(email.equals(it.email) && pass.equals(it.password)){
                             Log.i(TAG, "${it.password} and ${pass}")
-
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                             check = true

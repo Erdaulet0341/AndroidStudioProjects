@@ -14,6 +14,7 @@ import com.example.bookstore.R
 import com.example.bookstore.databinding.ActivityMainBinding
 import com.example.bookstore.db.bookUsers.userDb
 import com.example.bookstore.fragments.About
+import com.example.bookstore.fragments.Profile
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -45,11 +46,11 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
         binding.leftNav.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.profile ->{
                     Toast.makeText(this, "profile", Toast.LENGTH_SHORT).show()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment, Profile.newInstance()).commit()
                 }
                 R.id.admin ->{
                     Toast.makeText(this, "admin", Toast.LENGTH_SHORT).show()
@@ -84,4 +85,7 @@ class MainActivity : AppCompatActivity() {
         }
         return true
     }
+
+    fun era(){}
+
 }

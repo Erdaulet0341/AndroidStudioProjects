@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_col"
+    android:background="@color/grey"
     tools:context=".activities.First_Welcome">
 
     <ImageView
@@ -24,7 +24,7 @@
         android:layout_marginTop="40dp"
         android:fontFamily="cursive"
         android:text="Welcome To Book Store"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="38sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

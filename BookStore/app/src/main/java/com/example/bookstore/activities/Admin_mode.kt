@@ -24,7 +24,7 @@ class Admin_mode : AppCompatActivity() {
         val bookDb = bookDb.getBookDb(this)
         bookDb.getBookDao().getAllBooks().asLiveData().observe(this) {
             var listBooks = it
-            var adapter = bookAdminAdapter(listBooks)
+            var adapter = bookAdminAdapter(listBooks, this)
             binding.recView.layoutManager = LinearLayoutManager(this)
             binding.recView.adapter = adapter
         }

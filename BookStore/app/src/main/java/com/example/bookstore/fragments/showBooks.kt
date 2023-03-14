@@ -33,8 +33,6 @@ class showBooks : Fragment() {
             binding.recyclerFragment.adapter = adapter
         }
 
-
-
 //        var adapter= bookAdapter(listBooks)
 
 //        binding.recyclerFragment.apply {

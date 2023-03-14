@@ -17,5 +17,19 @@ interface bookDao {
     fun getAllBooks(): Flow<List<Book>>
 
     @Query("select * from books where bookId like :Sid")
-    fun getUserById(Sid:Int):Book
+    fun getBookById(Sid:Int):Book
+
+    @Query("delete from books where bookId like :Sid")
+    fun deleteBookById(Sid: Int)
+
+    @Query("update books set title=:title, description=:desc, cost=:cost where bookId=:Sid")
+    fun updateBook(Sid:Int, title:String, desc:String, cost:Double)
+
+
+    @Query("select * from books order by cost desc")
+    fun getAllBiiksByCostDesc():Flow<List<Book>>
+
+    @Query("select * from books order by cost asc")
+    fun getAllBiiksByCostAsc():Flow<List<Book>>
+
 }

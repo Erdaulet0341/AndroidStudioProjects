@@ -17,7 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="37dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="88dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
             android:background="@color/green_lig"
             android:drawableLeft="@drawable/book_title_24"
@@ -31,7 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
+            app:layout_constraintTop_toBottomOf="@+id/addNewBook" />
 
         <EditText
             android:id="@+id/authorAdd"
@@ -92,12 +92,14 @@
             android:id="@+id/addNewBook"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Add"
+            android:layout_marginTop="16dp"
+            android:text=" add new book"
+            android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/costAdd"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/costAdd"
-            app:layout_constraintTop_toBottomOf="@+id/costAdd" />
+            app:layout_constraintTop_toBottomOf="@+id/button2" />
 
         <Button
             android:id="@+id/button2"
@@ -105,6 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Home admin mode"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/titleAdd"
             app:layout_constraintStart_toStartOf="@+id/titleAdd"
             app:layout_constraintTop_toTopOf="parent" />

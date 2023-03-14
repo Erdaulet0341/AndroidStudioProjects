@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".activities.Admin_mode">
 
+    <Button
+        android:id="@+id/addBookBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="ADD BOOK"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/textView15"
         android:layout_width="0dp"
@@ -29,12 +38,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
-    <Button
-        android:id="@+id/addBookBtn"
+    <FrameLayout
+        android:id="@+id/fragmentAddBook"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="ADD BOOK"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/addBookBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/recView"
+        app:layout_constraintTop_toBottomOf="@+id/textView15">
+
+    </FrameLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

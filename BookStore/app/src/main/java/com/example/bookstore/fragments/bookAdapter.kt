@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bookstore.R
 import com.example.bookstore.databinding.BookItemBinding
 import com.example.bookstore.db.Books.Book
-import kotlin.math.cos
 
 class bookAdapter(val bookList:List<Book>): RecyclerView.Adapter<bookAdapter.BookHolder>() {
 
@@ -18,6 +17,7 @@ class bookAdapter(val bookList:List<Book>): RecyclerView.Adapter<bookAdapter.Boo
             titleBook.text = book.title
             authorBook.text = book.author
             costBook.text = book.cost.toString() + " tenge"
+            descBook.text = book.description
         }
 
 
@@ -30,15 +30,10 @@ class bookAdapter(val bookList:List<Book>): RecyclerView.Adapter<bookAdapter.Boo
 
     override fun onBindViewHolder(holder: BookHolder, position: Int) {
         holder.binkBooks(bookList[position])
-
     }
 
     override fun getItemCount(): Int {
         return bookList.size
     }
-
-//    fun addBook(book:Book){
-//
-//    }
 
 }

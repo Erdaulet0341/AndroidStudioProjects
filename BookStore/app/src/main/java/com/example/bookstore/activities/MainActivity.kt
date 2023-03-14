@@ -1,25 +1,15 @@
 package com.example.bookstore.activities
 
-import android.annotation.SuppressLint
-import android.content.ContentValues
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.asLiveData
 import com.example.bookstore.R
 import com.example.bookstore.databinding.ActivityMainBinding
-import com.example.bookstore.db.bookUsers.userDb
-import com.example.bookstore.fragments.About
-import com.example.bookstore.fragments.Profile
-import com.example.bookstore.fragments.Settings
-import com.example.bookstore.fragments.showBooks
+import com.example.bookstore.fragments.*
+import com.example.bookstore.fragments.AdminMode.Companion.newInstance
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -65,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.admin ->{
                     supportActionBar?.title = "Admin mode"
                     Toast.makeText(this, "admin", Toast.LENGTH_SHORT).show()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment, AdminMode.newInstance()).commit()
                 }
                 R.id.setting ->{
                     supportActionBar?.title = "Settings"

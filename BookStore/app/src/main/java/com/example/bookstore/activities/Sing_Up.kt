@@ -3,7 +3,11 @@ package com.example.bookstore.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.asLiveData
 import com.example.bookstore.R
 import com.example.bookstore.databinding.SingUpBinding
 import com.example.bookstore.db.bookUsers.User
@@ -45,13 +49,33 @@ class Sing_Up : AppCompatActivity() {
                     db.getDao().insertUser(tempUser)
                 }.start()
                 Toast.makeText(applicationContext, "Log In Successful", Toast.LENGTH_SHORT).show()
-                val int = Intent(this, Sing_In::class.java)
+                val int = Intent(this, First_Welcome::class.java)
                 startActivity(int)
             }
             else{
                 Toast.makeText(this, "Empty!", Toast.LENGTH_SHORT).show()
             }
         }
+
+        binding.button3.setOnClickListener {
+            if(binding.button3.text.toString().equals("Show")){
+                binding.passwUp.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                binding.button3.text= "Hide"
+            } else{
+                binding.passwUp.transformationMethod = PasswordTransformationMethod.getInstance()
+                binding.button3.text= "Show"
+            }
+        }
+        binding.button4.setOnClickListener {
+            if(binding.button4.text.toString().equals("Show")){
+                binding.confPassUp.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                binding.button4.text = "Hide"
+            } else{
+                binding.confPassUp.transformationMethod = PasswordTransformationMethod.getInstance()
+                binding.button4.text= "Show"
+            }
+        }
+
 
     }
 }

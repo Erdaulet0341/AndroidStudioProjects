@@ -2,6 +2,8 @@ package com.example.bookstore.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,8 +36,20 @@ class AdminMode : Fragment() {
             }
         }
 
+        binding.button.setOnClickListener {
+            if(binding.button.text.toString().equals("Show")){
+                binding.adminPasssword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                binding.button.text = "Hide"
+            }
+            else{
+                binding.adminPasssword.transformationMethod = PasswordTransformationMethod.getInstance()
+                binding.button.text = "Show"
+            }
+        }
+
         return binding.root
     }
+
 
     companion object {
         @JvmStatic

@@ -1,6 +1,7 @@
 package com.example.bookstore.fragments
 
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
@@ -9,27 +10,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.asLiveData
 import com.example.bookstore.R
+import com.example.bookstore.activities.Admin_mode
 import com.example.bookstore.databinding.FragmentSettingsBinding
 import com.example.bookstore.db.bookUsers.User
 import com.example.bookstore.db.bookUsers.userDb
 import java.util.regex.Pattern
 
 class Settings : Fragment() {
+
     lateinit var binding: FragmentSettingsBinding
+    lateinit var builder: AlertDialog.Builder
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentSettingsBinding.inflate(inflater)
-
         val currentActivity = requireActivity()
+        builder = AlertDialog.Builder(currentActivity)
+
         val db = userDb.getUserDb(currentActivity)
         var currentUser: User
         val emailPattern = Pattern.compile("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\." + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+").toRegex()
-
 
         db.getDao().getAllUser().asLiveData().observe(viewLifecycleOwner){
             binding.nameSetting.text =  Editable.Factory.getInstance().newEditable(it[it.size-1].name)
@@ -48,19 +54,27 @@ class Settings : Fragment() {
                 && !binding.emailSetting.text.isEmpty()
                 && !binding.passwordSetting.text.isEmpty())
             {
-                db.getDao().getAllUser().asLiveData().observe(viewLifecycleOwner){
-                    currentUser = it[it.size-1]
-                    val int = currentUser.id as Int
-                    Thread{
-                        db.getDao().updateUser(int,
-                            binding.nameSetting.text.toString(),
-                            binding.surnameSetting.text.toString(),
-                            binding.emailSetting.text.toString(),
-                            binding.passwordSetting.text.toString(),
-                            binding.passwordSetting.text.toString())
-                    }.start()
-                }
-                Toast.makeText(currentActivity, "Changes saved", Toast.LENGTH_SHORT).show()
+                builder.setTitle("Save profile changes")
+                    .setMessage("Are you sure save this changes?")
+                    .setPositiveButton("Yes"){inter, it ->
+                        db.getDao().getAllUser().asLiveData().observe(viewLifecycleOwner){
+                            currentUser = it[it.size-1]
+                            val int = currentUser.id as Int
+                            Thread{
+                                db.getDao().updateUser(int,
+                                    binding.nameSetting.text.toString(),
+                                    binding.surnameSetting.text.toString(),
+                                    binding.emailSetting.text.toString(),
+                                    binding.passwordSetting.text.toString(),
+                                    binding.passwordSetting.text.toString())
+                            }.start()
+                            Toast.makeText(currentActivity, "Changes saved", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    .setNegativeButton("No"){inter, it ->
+                        inter.cancel()
+                    }
+                    .show()
             }
             else{
                 Toast.makeText(currentActivity, "Empty data!", Toast.LENGTH_SHORT).show()

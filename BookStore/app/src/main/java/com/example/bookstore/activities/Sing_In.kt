@@ -4,6 +4,8 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.asLiveData
@@ -19,7 +21,6 @@ class Sing_In : AppCompatActivity() {
         supportActionBar?.title = "Login"
         val db = userDb.getUserDb(this)
 
-
         binding.singInBtn.setOnClickListener {
             var email = binding.singInEmail.text.toString()
             var pass = binding.singInPassword.text.toString()
@@ -33,7 +34,7 @@ class Sing_In : AppCompatActivity() {
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
                             check = true
-                            Toast.makeText(this, "Lon Ip Successful", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Lon in Successful", Toast.LENGTH_SHORT).show()
                             return@forEach
                         }
                         else{
@@ -48,8 +49,17 @@ class Sing_In : AppCompatActivity() {
             else{
                 Toast.makeText(this, "Empty", Toast.LENGTH_SHORT).show()
             }
-
         }
 
+        binding.ShowHide.setOnClickListener {
+            if(binding.ShowHide.text.toString().equals("Show")){
+                binding.singInPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                binding.ShowHide.text = "Hide"
+            }
+            else{
+                binding.singInPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                binding.ShowHide.text = "Show"
+            }
+        }
     }
 }

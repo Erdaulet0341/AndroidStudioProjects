@@ -6,23 +6,25 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import com.example.bookstore.R
 import com.example.bookstore.databinding.ActivityMainBinding
 import com.example.bookstore.fragments.*
-import com.example.bookstore.fragments.AdminMode.Companion.newInstance
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    lateinit var builder: AlertDialog.Builder
+    var backPressedTime: Long = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        builder = AlertDialog.Builder(this)
         setContentView(binding.root)
         supportActionBar?.title = "Book Store"
 
         supportFragmentManager.beginTransaction().replace(R.id.fragment, showBooks.newInstance()).commit()
-
-//        val db =userDb.getUserDb(this)
 
         binding.bottomBar.setOnNavigationItemSelectedListener {
             when(it.itemId){
@@ -32,21 +34,14 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "Menu", Toast.LENGTH_SHORT).show()
                 }
                 R.id.topBooks ->{
-//                    db.getDao().getAllUser().asLiveData().observe(this){
-//                        Log.i(ContentValues.TAG, "${it[0].email} and ${it[0].password}")
-//                    }
                     supportActionBar?.title = "Book Store"
-//                    val intent = Intent(this, MainActivity::class.java)
-//                    startActivity(intent)
                     supportFragmentManager.beginTransaction().replace(R.id.fragment, showBooks.newInstance()).commit()
                     Toast.makeText(this, "Books", Toast.LENGTH_SHORT).show()
                 }
-
             }
             true
         }
         binding.leftNav.setNavigationItemSelectedListener {
-//            val drawerLayout = DrawerLayout(this@MainActivity)
             when(it.itemId){
                 R.id.profile ->{
                     supportActionBar?.title = "Profile"
@@ -69,30 +64,38 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment, About.newInstance()).commit()
                 }
                 R.id.logout ->{
-                    Toast.makeText(this, "logout", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, First_Welcome::class.java)
-                    startActivity(intent)
+                    builder.setTitle("Exit accaunt")
+                        .setMessage("Do you want to log out,then you'll have to log in again!")
+                        .setPositiveButton("Yes"){dialogInterface, it ->
+                            val intent = Intent(this, First_Welcome::class.java)
+                            startActivity(intent)
+                        }
+                        .setNegativeButton("No"){id, it ->
+                            id.cancel()
+                        }.show()
                 }
             }
-//            drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.top_bar, menu)
-        return true
-    }
 
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.search_bar ->{
-                Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show()
-            }
+    override fun onBackPressed() {
+        if (backPressedTime + 10 > System.currentTimeMillis()) {
+            super.onBackPressed()
+        } else {
+            builder.setTitle("Exit your account")
+                .setMessage("Do you want to log out your account,then you'll have to log in again!")
+                .setPositiveButton("Yes"){id, it ->
+                    val intent = Intent(this, First_Welcome::class.java)
+                    startActivity(intent)
+                }
+                .setNegativeButton("No"){id, it ->
+                    id.cancel()
+                }
+                .show()
         }
-        return true
+        backPressedTime = System.currentTimeMillis()
     }
-
 }

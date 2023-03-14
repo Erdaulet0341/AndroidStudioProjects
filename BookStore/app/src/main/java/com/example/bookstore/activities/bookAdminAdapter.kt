@@ -1,5 +1,6 @@
 package com.example.bookstore.activities
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.text.Editable
@@ -18,6 +19,7 @@ class bookAdminAdapter(val listBook:List<Book>,val contex: Context): RecyclerVie
 
     class Holder(item:View, contex: Context):RecyclerView.ViewHolder(item){
         var binding = AdminBookBinding.bind(item)
+        var builder = AlertDialog.Builder(contex)
         val contextt = contex
         fun binkBooks(book: Book) = with(binding){
             titleAdmin.text = Editable.Factory.getInstance().newEditable(book.title)
@@ -28,11 +30,19 @@ class bookAdminAdapter(val listBook:List<Book>,val contex: Context): RecyclerVie
             binding.deleteADmin.setOnClickListener {
                 val db = bookDb.getBookDb(contextt)
                 val id:Int = book.bookId as Int
-                Thread{
-                    db.getBookDao().deleteBookById(id)
-                }.start()
-                val intent = Intent(contextt, com.example.bookstore.activities.Admin_mode::class.java)
-                contextt.startActivity(intent)
+                builder.setTitle("Delete Book")
+                    .setMessage("Are you sure delete this book? Then can not be restored!")
+                    .setPositiveButton("Yes"){inter, it ->
+                        Thread{
+                            db.getBookDao().deleteBookById(id)
+                        }.start()
+                        val intent = Intent(contextt, com.example.bookstore.activities.Admin_mode::class.java)
+                        contextt.startActivity(intent)
+                    }
+                    .setNegativeButton("No"){inter, it ->
+                        inter.cancel()
+                    }
+                    .show()
             }
         }
         fun clickLisnenerSave(book:Book){
@@ -46,14 +56,22 @@ class bookAdminAdapter(val listBook:List<Book>,val contex: Context): RecyclerVie
                 else if(!binding.CostAmin.text.matches(num)) binding.CostAmin.error = "Cost must be number!"
                 else if(!binding.titleAdmin.text.isEmpty()){
                     val cost:Double = binding.CostAmin.text.toString().toDouble()
-                    Thread{
-                        db.getBookDao().updateBook(id,
-                            binding.titleAdmin.text.toString(),
-                            binding.descAdmin.text.toString(),
-                            cost)
-                    }.start()
-                    val intent = Intent(contextt, com.example.bookstore.activities.Admin_mode::class.java)
-                    contextt.startActivity(intent)
+                    builder.setTitle("Update Book")
+                        .setMessage("Are you sure save this book changes?")
+                        .setPositiveButton("Yes"){inter, it ->
+                            Thread{
+                                db.getBookDao().updateBook(id,
+                                    binding.titleAdmin.text.toString(),
+                                    binding.descAdmin.text.toString(),
+                                    cost)
+                            }.start()
+                            val intent = Intent(contextt, com.example.bookstore.activities.Admin_mode::class.java)
+                            contextt.startActivity(intent)
+                        }
+                        .setNegativeButton("No"){inter, it ->
+                            inter.cancel()
+                        }
+                        .show()
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.example.bookstore.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -69,7 +70,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.logout ->{
                     Toast.makeText(this, "logout", Toast.LENGTH_SHORT).show()
-                    finish()
+                    val intent = Intent(this, First_Welcome::class.java)
+                    startActivity(intent)
                 }
             }
 //            drawerLayout.closeDrawer(GravityCompat.START)

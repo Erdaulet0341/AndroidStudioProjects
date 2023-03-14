@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="bg_col">#5B5C5A</color>
     <color name="green_lig">#60a917</color>
+    <color name="grey">#DCD6D6</color>
 
 </resources>

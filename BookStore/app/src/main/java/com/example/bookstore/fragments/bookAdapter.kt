@@ -9,7 +9,7 @@ import com.example.bookstore.R
 import com.example.bookstore.databinding.BookItemBinding
 import com.example.bookstore.db.Books.Book
 
-class bookAdapter(val bookList:List<Book>): RecyclerView.Adapter<bookAdapter.BookHolder>() {
+class bookAdapter(var bookList:List<Book>): RecyclerView.Adapter<bookAdapter.BookHolder>() {
 
     class BookHolder(item:View): RecyclerView.ViewHolder(item){
         val binding = BookItemBinding.bind(item)
@@ -21,6 +21,11 @@ class bookAdapter(val bookList:List<Book>): RecyclerView.Adapter<bookAdapter.Boo
         }
 
 
+    }
+
+    fun setFilteredBooks(bookList:List<Book>){
+        this.bookList = bookList
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookHolder {

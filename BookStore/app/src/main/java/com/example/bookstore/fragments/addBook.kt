@@ -44,6 +44,8 @@ class addBook : Fragment() {
                     db.getBookDao().insertBook(temp)
                 }.start()
                 Toast.makeText(contest, "Book succesfully added!", Toast.LENGTH_SHORT).show()
+                val intent = Intent(activity, com.example.bookstore.activities.Admin_mode::class.java)
+                startActivity(intent)
             }
         }
 

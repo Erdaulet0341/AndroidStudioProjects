@@ -66,7 +66,7 @@ class showBooks : Fragment() {
                     var filteredList = ArrayList<Book>()
                     bookDb.getBookDao().getAllBooks().asLiveData().observe(viewLifecycleOwner){list ->
                         list.forEach{
-                            if(it.title.lowercase(Locale.ROOT).contains(newText)){
+                            if(it.title.lowercase().contains(newText)){
                                 Log.d("FilterTitle", it.title)
                                 filteredList.add(it)
                             }

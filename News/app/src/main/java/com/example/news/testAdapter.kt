@@ -30,7 +30,6 @@ class testAdapter:RecyclerView.Adapter<testAdapter.myHolder>() {
         return lists.size
     }
 
-
     class myHolder(view: View):RecyclerView.ViewHolder(view){
 
 
@@ -45,10 +44,10 @@ class testAdapter:RecyclerView.Adapter<testAdapter.myHolder>() {
 
             Glide.with(img)
                 .load(url)
-                .placeholder(R.drawable.image)
-                .error(R.drawable.image)
-                .fallback(R.drawable.image)
-                .into(img)
+                    .placeholder(R.drawable.image)
+                    .error(R.drawable.image)
+                    .fallback(R.drawable.image)
+                    .into(img)
         }
 
     }

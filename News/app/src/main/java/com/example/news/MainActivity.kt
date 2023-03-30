@@ -45,10 +45,10 @@ class MainActivity : AppCompatActivity() {
         call.enqueue(object : Callback<News>{
             override fun onResponse(call: Call<News>, response: Response<News>) {
                 Log.d("call", "${call}")
-                if(response.isSuccessful){
-                    recV.setList(response.body()?.articles!!)
-                    recV.notifyDataSetChanged()
-                    Log.d("isSuccessful", "true")
+                    if(response.isSuccessful){
+                        recV.setList(response.body()?.articles!!)
+                        recV.notifyDataSetChanged()
+                        Log.d("isSuccessful", "true")
                 }
                 if(!response.isSuccessful){
                     Log.d("Fial", "true")
@@ -58,7 +58,6 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<News>, t: Throwable) {
                 Toast.makeText(this@MainActivity, "Error", Toast.LENGTH_SHORT).show()
                 Log.d("onFailure", "true")
-
             }
 
         })

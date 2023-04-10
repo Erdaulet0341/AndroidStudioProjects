@@ -5,7 +5,6 @@ import android.os.Bundle
 import com.example.remoteshop.R
 import com.example.remoteshop.databinding.ActivityLoginClientBinding
 import com.example.remoteshop.fragments.ClientSignIn
-
 class LoginClient : AppCompatActivity() {
     lateinit var binding: ActivityLoginClientBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,5 +14,6 @@ class LoginClient : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().replace(R.id.client_frag, ClientSignIn.newInstance()).commit()
         supportActionBar?.title = "Client Sign In"
+
     }
 }

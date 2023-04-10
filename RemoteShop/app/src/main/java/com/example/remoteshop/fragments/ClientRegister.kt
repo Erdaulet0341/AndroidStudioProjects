@@ -1,15 +1,24 @@
 package com.example.remoteshop.fragments
 
 import android.os.Bundle
+import android.os.Looper
+import android.text.Editable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.remoteshop.R
+import com.example.remoteshop.backend.api_instance
+import com.example.remoteshop.backend.api_services
+import com.example.remoteshop.backend.users.Client
 import com.example.remoteshop.databinding.FragmentClientRegisterBinding
-import com.example.remoteshop.databinding.FragmentClientSignInBinding
-import com.example.remoteshop.databinding.FragmentSellerRegisterBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.logging.Handler
 import java.util.regex.Pattern
 
 class ClientRegister : Fragment() {
@@ -33,19 +42,50 @@ class ClientRegister : Fragment() {
             var password = binding.clientpassRegIn
             var conf_pass = binding.clientpassRegConfIn
 
+            username.text = Editable.Factory.getInstance().newEditable("Era")
+            email.text = Editable.Factory.getInstance().newEditable("erdaulet03@gmail.com")
+            city.text = Editable.Factory.getInstance().newEditable("Shymkent")
+            password.text = Editable.Factory.getInstance().newEditable("123456")
+            conf_pass.text = Editable.Factory.getInstance().newEditable("123456")
+
             if(username.text.toString().isEmpty()) username.error = "Empty username"
             else if(!email.text.toString().matches(emailPattern)) email.error = "Invalid email!"
             else if(city.text.toString().isEmpty()) city.error = "Empty city"
             else if(password.text.toString().length <5) password.error = "Password must be more than 6"
             else if(conf_pass.text.toString() != password.text.toString()) conf_pass.error = "Don't same passwords"
-//            else{
-//
-//            }
+            else{
+
+                val temp = Client(
+                    null,
+                    username.text.toString(),
+                    email.text.toString(),
+                    city.text.toString(),
+                    password.text.toString()
+                )
+
+                val retrofit = api_instance.getApiInstance()
+                val service = retrofit.create(api_services::class.java)
+
+                CoroutineScope(Dispatchers.IO).launch {
+                    val response = service.createClient(temp)
+
+                    Thread(Runnable {
+                        activity?.runOnUiThread(java.lang.Runnable {
+                            Toast.makeText(activity, "${response.message()}", Toast.LENGTH_SHORT).show()
+                        })
+                    }).start()
+
+                    Log.d("message", "${response.message()}")
+                    Log.d("tostring", "${response.body().toString()} message")
+                    Log.d("issuc", "${response.isSuccessful}")
+                }
+            }
 
         }
 
         return binding.root
     }
+
 
     companion object {
         @JvmStatic

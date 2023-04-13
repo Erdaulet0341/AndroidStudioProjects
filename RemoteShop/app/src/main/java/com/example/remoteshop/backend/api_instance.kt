@@ -7,7 +7,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 
 class api_instance {
     companion object {
-        val url = "https://android.pythonanywhere.com/api/"  //http://localhost:5000/api/clients/
+        val url = "http://192.168.80.115:4000/api/"  //https://android.pythonanywhere.com/api/
         fun getApiInstance(): Retrofit {
             return Retrofit.Builder()
                 .baseUrl(url)

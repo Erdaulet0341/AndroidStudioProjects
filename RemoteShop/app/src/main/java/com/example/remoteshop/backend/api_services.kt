@@ -1,6 +1,8 @@
 package com.example.remoteshop.backend
 
+import com.example.remoteshop.backend.users.Admin
 import com.example.remoteshop.backend.users.Client
+import com.example.remoteshop.backend.users.Seller
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
@@ -14,15 +16,21 @@ interface api_services {
     @GET("clients")
     fun getAllClients(): Call<List<Client>>
 
-//    @Field("id") id:Int,
-//    @Field("useranme") username: String,
-//    @Field("email") email: String,
-//    @Field("city") city:String,
-//    @Field("password") password: String,
 
     @POST("createClient/")
     suspend fun createClient(
         @Body client: Client
     ): Response<ResponseBody>
+
+    @GET("sellers")
+    fun getAllSellers(): Call<List<Seller>>
+
+    @POST("createSeller/")
+    suspend fun createSeller(
+        @Body seller: Seller
+    ): Response<ResponseBody>
+
+    @GET("admins")
+    fun getAllAdmins(): Call<List<Admin>>
 
 }

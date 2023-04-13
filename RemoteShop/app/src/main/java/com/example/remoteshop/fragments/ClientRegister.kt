@@ -18,6 +18,9 @@ import com.example.remoteshop.databinding.FragmentClientRegisterBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.logging.Handler
 import java.util.regex.Pattern
 
@@ -29,6 +32,7 @@ class ClientRegister : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentClientRegisterBinding.inflate(inflater)
+        binding.progressBarClientReg.visibility = View.INVISIBLE
 
         binding.SingInRegClient.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.client_frag, ClientSignIn.newInstance())?.commit()
@@ -42,11 +46,11 @@ class ClientRegister : Fragment() {
             var password = binding.clientpassRegIn
             var conf_pass = binding.clientpassRegConfIn
 
-            username.text = Editable.Factory.getInstance().newEditable("Era")
-            email.text = Editable.Factory.getInstance().newEditable("erdaulet03@gmail.com")
-            city.text = Editable.Factory.getInstance().newEditable("Shymkent")
-            password.text = Editable.Factory.getInstance().newEditable("123456")
-            conf_pass.text = Editable.Factory.getInstance().newEditable("123456")
+//            username.text = Editable.Factory.getInstance().newEditable("Era")
+//            email.text = Editable.Factory.getInstance().newEditable("erdaulet03@gmail.com")
+//            city.text = Editable.Factory.getInstance().newEditable("Shymkent")
+//            password.text = Editable.Factory.getInstance().newEditable("123456")
+//            conf_pass.text = Editable.Factory.getInstance().newEditable("123456")
 
             if(username.text.toString().isEmpty()) username.error = "Empty username"
             else if(!email.text.toString().matches(emailPattern)) email.error = "Invalid email!"
@@ -65,20 +69,49 @@ class ClientRegister : Fragment() {
 
                 val retrofit = api_instance.getApiInstance()
                 val service = retrofit.create(api_services::class.java)
+                val call = service.getAllClients()
+                binding.progressBarClientReg.visibility = View.VISIBLE
 
-                CoroutineScope(Dispatchers.IO).launch {
-                    val response = service.createClient(temp)
+                call.enqueue(object : Callback<List<Client>> {
+                    override fun onResponse(call: Call<List<Client>>, response: Response<List<Client>>) {
+                        var clients = response.body()
 
-                    Thread(Runnable {
-                        activity?.runOnUiThread(java.lang.Runnable {
-                            Toast.makeText(activity, "${response.message()}", Toast.LENGTH_SHORT).show()
-                        })
-                    }).start()
+                        Log.d("clients", "${clients?.size}")
+                        var check = true
 
-                    Log.d("message", "${response.message()}")
-                    Log.d("tostring", "${response.body().toString()} message")
-                    Log.d("issuc", "${response.isSuccessful}")
-                }
+                        clients?.forEach{
+                            if(it.email == email.text.toString()){
+                                email.error = "This email already registered!"
+                                check = false
+                            }
+                        }
+
+                        Log.d("check", "$check")
+                        if(check){
+                            CoroutineScope(Dispatchers.IO).launch {
+                                service.createClient(temp)
+                                if(response.isSuccessful){
+                                    Thread(Runnable {
+                                        activity?.runOnUiThread(java.lang.Runnable {
+                                            Toast.makeText(activity, "You are successfully registered", Toast.LENGTH_SHORT).show()
+                                        })
+                                    }).start()                              }
+                                else{
+                                    Thread(Runnable {
+                                        activity?.runOnUiThread(java.lang.Runnable {
+                                            Toast.makeText(activity, "something wrong", Toast.LENGTH_SHORT).show()
+                                        })
+                                    }).start()
+                                }
+                            }
+                        }
+                        binding.progressBarClientReg.visibility = View.INVISIBLE
+                    }
+                    override fun onFailure(call: Call<List<Client>>, t: Throwable) {
+                        Toast.makeText(activity, "${t.message}", Toast.LENGTH_SHORT).show()
+                        binding.progressBarClientReg.visibility = View.INVISIBLE
+                    }
+                })
             }
 
         }

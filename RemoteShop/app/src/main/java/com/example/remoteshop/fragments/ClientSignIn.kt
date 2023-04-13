@@ -40,36 +40,33 @@ class ClientSignIn : Fragment() {
             if(!email.text.toString().matches(emailPattern)) email.error = "Invalid email!"
             else if(password.text.toString().isEmpty()) password.error = "Emoty password!"
             else{
-                checkLogin()
+                val api = api_instance.getApiInstance().create(api_services::class.java)
+                val call = api.getAllClients()
+                binding.progressBarClientSingin.visibility = View.VISIBLE
+                call.enqueue(object : Callback<List<Client>> {
+                    override fun onResponse(call: Call<List<Client>>, response: Response<List<Client>>) {
+                        var clients = response.body()
+
+                        Log.d("clients", "${clients?.size}")
+                        Log.d("is_succesfull", "${response?.isSuccessful}")
+
+                        Toast.makeText(activity, "responce work", Toast.LENGTH_SHORT).show()
+                        binding.progressBarClientSingin.visibility = View.INVISIBLE
+                    }
+
+                    override fun onFailure(call: Call<List<Client>>, t: Throwable) {
+                        Toast.makeText(activity, "${t.message}", Toast.LENGTH_SHORT).show()
+                        Log.d("clients", "${t.message}")
+                        binding.progressBarClientSingin.visibility = View.INVISIBLE
+
+                    }
+                })
             }
         }
 
         return binding.root
     }
 
-
-    private fun checkLogin() {
-        val api = api_instance.getApiInstance().create(api_services::class.java)
-        val call = api.getAllClients()
-        binding.progressBarClientSingin.visibility = View.VISIBLE
-        call.enqueue(object : Callback<List<Client>> {
-            override fun onResponse(call: Call<List<Client>>, response: Response<List<Client>>) {
-                var clients = response.body()
-
-                Log.d("clients", "${clients?.size}")
-
-                Toast.makeText(activity, "responce work", Toast.LENGTH_SHORT).show()
-                binding.progressBarClientSingin.visibility = View.INVISIBLE
-            }
-
-            override fun onFailure(call: Call<List<Client>>, t: Throwable) {
-                Toast.makeText(activity, "${t.localizedMessage}", Toast.LENGTH_SHORT).show()
-                Log.d("clients", "${t.message}")
-                binding.progressBarClientSingin.visibility = View.INVISIBLE
-
-            }
-        })
-    }
 
     companion object {
         @JvmStatic

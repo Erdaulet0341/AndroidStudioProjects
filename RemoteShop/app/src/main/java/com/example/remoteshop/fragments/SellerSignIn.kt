@@ -1,13 +1,21 @@
 package com.example.remoteshop.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.remoteshop.R
+import com.example.remoteshop.backend.api_instance
+import com.example.remoteshop.backend.api_services
+import com.example.remoteshop.backend.users.Seller
 import com.example.remoteshop.databinding.FragmentSellerSignInBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.regex.Pattern
 
 class SellerSignIn : Fragment() {
@@ -18,6 +26,7 @@ class SellerSignIn : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSellerSignInBinding.inflate(inflater)
+        binding.progressBarSellerSingin.visibility = View.INVISIBLE
 
         binding.registerSeller.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.seller_frag, SellerRegister.newInstance())?.commit()
@@ -29,15 +38,33 @@ class SellerSignIn : Fragment() {
             var password = binding.sellerPasswordIn
 
             if(!email.text.toString().matches(emailPattern)) email.error = "Invalid email!"
-            else if(password.text.toString().isEmpty()) password.error = "Emoty password!"
-//            else{
-//
-//            }
+            else if(password.text.toString().isEmpty()) password.error = "Empty password!"
+            else{
+                val api = api_instance.getApiInstance().create(api_services::class.java)
+                val call = api.getAllSellers()
+                binding.progressBarSellerSingin.visibility = View.VISIBLE
+                call.enqueue(object : Callback<List<Seller>> {
+                    override fun onResponse(call: Call<List<Seller>>, response: Response<List<Seller>>) {
+                        var sellers = response.body()
+
+                        Log.d("sellers", "${sellers?.size}")
+
+                        Toast.makeText(activity, "responce work", Toast.LENGTH_SHORT).show()
+                        binding.progressBarSellerSingin.visibility = View.INVISIBLE
+                    }
+
+                    override fun onFailure(call: Call<List<Seller>>, t: Throwable) {
+                        Toast.makeText(activity, "${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+                        Log.d("sellers", "${t.message}")
+                        binding.progressBarSellerSingin.visibility = View.INVISIBLE
+
+                    }
+                })
+            }
         }
 
         return binding.root
     }
-
     companion object {
         @JvmStatic
         fun newInstance() = SellerSignIn()

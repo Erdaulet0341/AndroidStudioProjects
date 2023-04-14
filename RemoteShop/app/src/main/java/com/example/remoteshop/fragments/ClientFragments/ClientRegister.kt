@@ -1,4 +1,4 @@
-package com.example.remoteshop.fragments
+package com.example.remoteshop.fragments.ClientFragments
 
 import android.os.Bundle
 import android.util.Log
@@ -12,9 +12,7 @@ import com.example.remoteshop.R
 import com.example.remoteshop.backend.api_instance
 import com.example.remoteshop.backend.api_services
 import com.example.remoteshop.backend.users.Client
-import com.example.remoteshop.backend.users.Seller
 import com.example.remoteshop.databinding.FragmentClientRegisterBinding
-import com.example.remoteshop.databinding.FragmentSellerRegisterBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,59 +21,64 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.regex.Pattern
 
-class SellerRegister : Fragment() {
-
-    lateinit var binding: FragmentSellerRegisterBinding
+class ClientRegister : Fragment() {
+    lateinit var  binding: FragmentClientRegisterBinding
     val emailPattern = Pattern.compile("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\." + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+").toRegex()
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSellerRegisterBinding.inflate(inflater)
-        binding.progressBarSellerReg.visibility = View.INVISIBLE
+        binding = FragmentClientRegisterBinding.inflate(inflater)
+        binding.progressBarClientReg.visibility = View.INVISIBLE
 
-        binding.SingInReg.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.seller_frag, SellerSignIn.newInstance())?.commit()
-            (activity as AppCompatActivity).supportActionBar?.title = "Seller Sign In"
+        binding.SingInRegClient.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.client_frag,
+                ClientSignIn.newInstance()
+            )?.commit()
+            (activity as AppCompatActivity).supportActionBar?.title = "Client Sign In"
         }
 
-        binding.sellerRegBtn.setOnClickListener {
-            var username = binding.sellerusernameIn
-            var email = binding.selleremailIn
-            var company_name = binding.sellercompanynameIn
-            var password = binding.sellerpassRegIn
-            var conf_pass = binding.sellerpassRegConfIn
+        binding.clientRegBtn.setOnClickListener {
+            var username = binding.clientusernameIn
+            var email = binding.clientemailIn
+            var city = binding.clientcitynameIn
+            var password = binding.clientpassRegIn
+            var conf_pass = binding.clientpassRegConfIn
+
+//            username.text = Editable.Factory.getInstance().newEditable("Era")
+//            email.text = Editable.Factory.getInstance().newEditable("erdaulet03@gmail.com")
+//            city.text = Editable.Factory.getInstance().newEditable("Shymkent")
+//            password.text = Editable.Factory.getInstance().newEditable("123456")
+//            conf_pass.text = Editable.Factory.getInstance().newEditable("123456")
 
             if(username.text.toString().isEmpty()) username.error = "Empty username"
             else if(!email.text.toString().matches(emailPattern)) email.error = "Invalid email!"
-            else if(company_name.text.toString().isEmpty()) company_name.error = "Empty Company name"
+            else if(city.text.toString().isEmpty()) city.error = "Empty city"
             else if(password.text.toString().length <5) password.error = "Password must be more than 6"
             else if(conf_pass.text.toString() != password.text.toString()) conf_pass.error = "Don't same passwords"
             else{
 
-                val temp = Seller(
+                val temp = Client(
                     null,
                     username.text.toString(),
                     email.text.toString(),
-                    company_name.text.toString(),
+                    city.text.toString(),
                     password.text.toString()
                 )
 
                 val retrofit = api_instance.getApiInstance()
                 val service = retrofit.create(api_services::class.java)
-                val call = service.getAllSellers()
-                binding.progressBarSellerReg.visibility = View.VISIBLE
+                val call = service.getAllClients()
+                binding.progressBarClientReg.visibility = View.VISIBLE
 
-                call.enqueue(object : Callback<List<Seller>> {
-                    override fun onResponse(call: Call<List<Seller>>, response: Response<List<Seller>>) {
-                        var sellers = response.body()
+                call.enqueue(object : Callback<List<Client>> {
+                    override fun onResponse(call: Call<List<Client>>, response: Response<List<Client>>) {
+                        var clients = response.body()
 
-                        Log.d("clients", "${sellers?.size}")
-                        Log.d("response", "${response.isSuccessful}")
+                        Log.d("clients", "${clients?.size}")
                         var check = true
 
-                        sellers?.forEach{
+                        clients?.forEach{
                             if(it.email == email.text.toString()){
                                 email.error = "This email already registered!"
                                 check = false
@@ -85,38 +88,39 @@ class SellerRegister : Fragment() {
                         Log.d("check", "$check")
                         if(check){
                             CoroutineScope(Dispatchers.IO).launch {
-                                service.createSeller(temp)
+                                service.createClient(temp)
                                 if(response.isSuccessful){
                                     Thread(Runnable {
                                         activity?.runOnUiThread(java.lang.Runnable {
-                                            Toast.makeText(activity, "Successfully registered", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(activity, "You are successfully registered", Toast.LENGTH_SHORT).show()
                                         })
                                     }).start()                              }
                                 else{
                                     Thread(Runnable {
                                         activity?.runOnUiThread(java.lang.Runnable {
-                                            Toast.makeText(activity, "${response.message()}", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(activity, "something wrong", Toast.LENGTH_SHORT).show()
                                         })
                                     }).start()
                                 }
                             }
                         }
-                        binding.progressBarSellerReg.visibility = View.INVISIBLE
+                        binding.progressBarClientReg.visibility = View.INVISIBLE
                     }
-                    override fun onFailure(call: Call<List<Seller>>, t: Throwable) {
+                    override fun onFailure(call: Call<List<Client>>, t: Throwable) {
                         Toast.makeText(activity, "${t.message}", Toast.LENGTH_SHORT).show()
-                        binding.progressBarSellerReg.visibility = View.INVISIBLE
+                        binding.progressBarClientReg.visibility = View.INVISIBLE
                     }
                 })
-        }
+            }
 
         }
 
         return binding.root
     }
 
+
     companion object {
         @JvmStatic
-        fun newInstance() = SellerRegister()
+        fun newInstance() = ClientRegister()
     }
 }

@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.remoteshop.R
 import com.example.remoteshop.databinding.ActivityLoginClientBinding
-import com.example.remoteshop.fragments.ClientSignIn
+import com.example.remoteshop.fragments.ClientFragments.ClientSignIn
 class LoginClient : AppCompatActivity() {
     lateinit var binding: ActivityLoginClientBinding
     override fun onCreate(savedInstanceState: Bundle?) {

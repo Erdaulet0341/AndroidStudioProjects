@@ -1,4 +1,4 @@
-package com.example.remoteshop.fragments
+package com.example.remoteshop.fragments.ClientFragments
 
 import android.os.Bundle
 import android.util.Log

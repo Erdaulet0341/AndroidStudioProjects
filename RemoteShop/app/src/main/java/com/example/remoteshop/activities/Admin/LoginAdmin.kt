@@ -39,16 +39,18 @@ class LoginAdmin : AppCompatActivity() {
                     override fun onResponse(call: Call<List<Admin>>, response: Response<List<Admin>>) {
                         var admin = response.body()
                         Log.d("admins", "${admin?.size}")
+                        var check = true
 
                         admin?.forEach{
                             if(it.login == login.text.toString() && it.password == password.text.toString()){
                                 val intent = Intent(this@LoginAdmin, AdminPage::class.java)
                                 Toast.makeText(this@LoginAdmin, "Login Successful", Toast.LENGTH_SHORT).show()
                                 startActivity(intent)
+                                check = false
                             }
                         }
+                        if(check)  Toast.makeText(this@LoginAdmin, "Login or password incorrect", Toast.LENGTH_SHORT).show()
 
-                        Toast.makeText(this@LoginAdmin, "Login or password incorrect", Toast.LENGTH_SHORT).show()
                         binding.progressBarAdminLogin.visibility = View.INVISIBLE
                     }
 

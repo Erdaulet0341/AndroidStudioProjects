@@ -1,4 +1,4 @@
-package com.example.remoteshop.activities
+package com.example.remoteshop.activities.Client
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -89,13 +89,13 @@ class SellerRegister : Fragment() {
                                 if(response.isSuccessful){
                                     Thread(Runnable {
                                         activity?.runOnUiThread(java.lang.Runnable {
-                                            Toast.makeText(activity, "${response.message()}", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(activity, "Successfully registered", Toast.LENGTH_SHORT).show()
                                         })
                                     }).start()                              }
                                 else{
                                     Thread(Runnable {
                                         activity?.runOnUiThread(java.lang.Runnable {
-                                            Toast.makeText(activity, "something wrong", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(activity, "${response.message()}", Toast.LENGTH_SHORT).show()
                                         })
                                     }).start()
                                 }

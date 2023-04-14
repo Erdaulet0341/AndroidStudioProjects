@@ -3,7 +3,9 @@ package com.example.remoteshop.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.remoteshop.R
+import com.example.remoteshop.activities.Admin.LoginAdmin
+import com.example.remoteshop.activities.Client.LoginClient
+import com.example.remoteshop.activities.Seller.LoginSeller
 import com.example.remoteshop.databinding.ActivityFirstWelcomeBinding
 
 class FirstWelcome : AppCompatActivity() {

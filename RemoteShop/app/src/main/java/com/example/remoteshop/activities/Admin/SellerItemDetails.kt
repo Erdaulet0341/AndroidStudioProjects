@@ -71,7 +71,6 @@ class SellerItemDetails : AppCompatActivity() {
                                 Toast.makeText(this@SellerItemDetails, "${response.message()}", Toast.LENGTH_SHORT).show()
 
                             }
-
                         }
 
                         override fun onFailure(call: Call<ResponseBody>, t: Throwable) {

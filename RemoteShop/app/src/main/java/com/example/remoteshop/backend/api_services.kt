@@ -1,5 +1,8 @@
 package com.example.remoteshop.backend
 
+import android.util.Log
+import com.example.remoteshop.backend.products.Category
+import com.example.remoteshop.backend.products.Product
 import com.example.remoteshop.backend.users.Admin
 import com.example.remoteshop.backend.users.Client
 import com.example.remoteshop.backend.users.Seller
@@ -8,7 +11,6 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
-import retrofit2.http.Field
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -41,4 +43,21 @@ interface api_services {
     @DELETE("clientById/{id}/")
     fun deleteClient(@Path("id") id:Int): Call<ResponseBody>
 
+
+    @GET("products")
+    fun getAllProducts(): Call<List<Product>>
+
+    @GET("SellerById/{seller}/products")
+    fun getSelletProducts(@Path("seller") id:Int): Call<List<Product>>
+
+    @POST("products/")
+    suspend fun addProduct(
+        @Body product: Product
+    ): Response<ResponseBody>
+
+    @GET("categories")
+    fun getAllCategories(): Call<List<Category>>
+
+    @GET("categotyByName/{name}")
+    fun getCategory(@Path("name") name:String): Call<Category>
 }

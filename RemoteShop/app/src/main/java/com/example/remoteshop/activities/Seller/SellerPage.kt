@@ -1,0 +1,52 @@
+package com.example.remoteshop.activities.Seller
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
+import com.example.remoteshop.R
+import com.example.remoteshop.databinding.ActivitySellerPageBinding
+import com.example.remoteshop.fragments.SellerFragments.AddProductSeller
+import com.example.remoteshop.fragments.SellerFragments.AllProductsSeller
+
+class SellerPage : AppCompatActivity() {
+
+    lateinit var binding: ActivitySellerPageBinding
+    lateinit var bundle: Bundle
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivitySellerPageBinding.inflate(layoutInflater)
+        bundle = intent.extras as Bundle
+        supportActionBar?.title = "My Products"
+        val id = bundle!!.getInt("id")
+        Log.d("id", "$id")
+        setContentView(binding.root)
+
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragmentSellerpage, AllProductsSeller.newInstance()).commit()
+        bottomBar()
+    }
+
+    private fun bottomBar() {
+        binding.bottomBarSeller.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.productsAllSeller ->{
+                    supportActionBar?.title = "My Products"
+                    Toast.makeText(this@SellerPage, "Products", Toast.LENGTH_SHORT).show()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragmentSellerpage, AllProductsSeller.newInstance()).commit()
+                }
+                R.id.ddProductSeller ->{
+                    supportActionBar?.title = "Add Product"
+                    Toast.makeText(this@SellerPage, "Add product", Toast.LENGTH_SHORT).show()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragmentSellerpage, AddProductSeller.newInstance()).commit()
+                }
+                R.id.AccountSellerBottom ->{
+                    Toast.makeText(this@SellerPage, "Account", Toast.LENGTH_SHORT).show()
+                }
+            }
+            true
+        }
+    }
+}

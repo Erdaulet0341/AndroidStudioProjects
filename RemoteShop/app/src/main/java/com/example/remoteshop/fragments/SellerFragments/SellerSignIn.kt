@@ -1,5 +1,6 @@
 package com.example.remoteshop.fragments.SellerFragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.remoteshop.R
+import com.example.remoteshop.activities.Seller.SellerPage
 import com.example.remoteshop.backend.api_instance
 import com.example.remoteshop.backend.api_services
 import com.example.remoteshop.backend.users.Seller
@@ -48,8 +50,21 @@ class SellerSignIn : Fragment() {
                         var sellers = response.body()
 
                         Log.d("sellers", "${sellers?.size}")
+                        var check = true
 
-                        Toast.makeText(activity, "responce work", Toast.LENGTH_SHORT).show()
+                        sellers?.forEach {
+                            if(it.email == email.text.toString() && it.password == password.text.toString()){
+                                val intent = Intent(activity, SellerPage::class.java)
+                                Toast.makeText(activity, "Login successful", Toast.LENGTH_SHORT).show()
+
+                                intent.putExtra("id", it.id)
+                                startActivity(intent)
+                                check = false
+                            }
+                        }
+
+                        if(check) Toast.makeText(activity, "Incorrect password or email", Toast.LENGTH_SHORT).show()
+
                         binding.progressBarSellerSingin.visibility = View.INVISIBLE
                     }
 

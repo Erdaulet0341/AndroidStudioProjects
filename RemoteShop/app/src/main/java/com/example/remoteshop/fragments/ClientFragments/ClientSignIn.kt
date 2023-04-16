@@ -1,5 +1,6 @@
 package com.example.remoteshop.fragments.ClientFragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.remoteshop.R
+import com.example.remoteshop.activities.Client.ClientPage
+import com.example.remoteshop.activities.Seller.SellerPage
 import com.example.remoteshop.backend.api_instance
 import com.example.remoteshop.backend.api_services
 import com.example.remoteshop.backend.users.Client
@@ -21,6 +24,8 @@ import java.util.regex.Pattern
 class ClientSignIn : Fragment() {
     lateinit var binding: FragmentClientSignInBinding
     val emailPattern = Pattern.compile("[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\." + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+").toRegex()
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,10 +52,20 @@ class ClientSignIn : Fragment() {
                     override fun onResponse(call: Call<List<Client>>, response: Response<List<Client>>) {
                         var clients = response.body()
 
-                        Log.d("clients", "${clients?.size}")
-                        Log.d("is_succesfull", "${response?.isSuccessful}")
+                        Log.d("sellers", "${clients?.size}")
+                        var check = true
 
-                        Toast.makeText(activity, "responce work", Toast.LENGTH_SHORT).show()
+                        clients?.forEach {
+                            if(it.email == email.text.toString() && it.password == password.text.toString()){
+                                val intent = Intent(activity, ClientPage::class.java)
+                                Toast.makeText(activity, "Login successful", Toast.LENGTH_SHORT).show()
+//                                intent.putExtra("id", it.id)
+                                startActivity(intent)
+                                check = false
+                            }
+                        }
+
+                        if(check) Toast.makeText(activity, "Incorrect password or email", Toast.LENGTH_SHORT).show()
                         binding.progressBarClientSingin.visibility = View.INVISIBLE
                     }
 

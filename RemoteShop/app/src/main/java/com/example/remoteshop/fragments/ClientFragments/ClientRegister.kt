@@ -2,24 +2,24 @@ package com.example.remoteshop.fragments.ClientFragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.remoteshop.R
 import com.example.remoteshop.backend.api_instance
 import com.example.remoteshop.backend.api_services
 import com.example.remoteshop.backend.users.Client
 import com.example.remoteshop.databinding.FragmentClientRegisterBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Runnable
 import java.util.regex.Pattern
+
 
 class ClientRegister : Fragment() {
     lateinit var  binding: FragmentClientRegisterBinding
@@ -94,11 +94,17 @@ class ClientRegister : Fragment() {
                                         activity?.runOnUiThread(java.lang.Runnable {
                                             Toast.makeText(activity, "You are successfully registered", Toast.LENGTH_SHORT).show()
                                         })
-                                    }).start()                              }
+                                    }).start()
+                                    MainScope().launch {
+                                        withContext(Dispatchers.Default) {}
+                                        fragmentManager?.beginTransaction()?.replace(R.id.client_frag, ClientSignIn.newInstance())?.commit()
+                                        (activity as AppCompatActivity).supportActionBar?.title = "My products"
+                                    }
+                                }
                                 else{
                                     Thread(Runnable {
                                         activity?.runOnUiThread(java.lang.Runnable {
-                                            Toast.makeText(activity, "something wrong", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(activity, "${response.message()}", Toast.LENGTH_SHORT).show()
                                         })
                                     }).start()
                                 }

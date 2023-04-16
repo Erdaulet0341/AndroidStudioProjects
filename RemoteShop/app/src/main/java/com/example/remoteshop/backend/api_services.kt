@@ -13,6 +13,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface api_services {
@@ -37,6 +38,12 @@ interface api_services {
     @GET("admins")
     fun getAllAdmins(): Call<List<Admin>>
 
+    @GET("SellerById/{id}")
+    fun getSellerById(@Path("id") id:Int): Call<Seller>
+
+    @PUT("SellerById/{id}/")
+    fun updateSeller(@Path("id") id:Int,  @Body seller: Seller): Call<Void>
+
     @DELETE("SellerById/{id}/")
     fun deleteSeller(@Path("id") id:Int): Call<ResponseBody>
 
@@ -46,6 +53,15 @@ interface api_services {
 
     @GET("products")
     fun getAllProducts(): Call<List<Product>>
+
+    @GET("productById/{id}")
+    fun getProductById(@Path("id") id:Int): Call<Product>
+
+    @PUT("productById/{id}/")
+    fun updateProduct(@Path("id") id:Int,  @Body product: Product): Call<Void>
+
+    @DELETE("productById/{id}/")
+    fun deleteProduct(@Path("id") id:Int): Call<ResponseBody>
 
     @GET("SellerById/{seller}/products")
     fun getSelletProducts(@Path("seller") id:Int): Call<List<Product>>

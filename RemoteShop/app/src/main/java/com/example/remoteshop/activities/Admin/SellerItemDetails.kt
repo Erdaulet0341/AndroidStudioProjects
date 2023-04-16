@@ -43,8 +43,8 @@ class SellerItemDetails : AppCompatActivity() {
         binding.EmailSellerDet.text = email
         binding.usernameSellerDetails.text = username
         binding.companyNameSellerDet.text = companyName
+        binding.idSellerAdminDet.text = id.toString()
 
-        Log.d("id", "$id")
 
         binding.deleteCompanyBtn.setOnClickListener {
 

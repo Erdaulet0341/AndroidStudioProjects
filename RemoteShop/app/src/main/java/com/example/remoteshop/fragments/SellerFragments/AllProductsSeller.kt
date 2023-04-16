@@ -8,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.remoteshop.R
 import com.example.remoteshop.activities.Admin.ClientAdapter
 import com.example.remoteshop.activities.Admin.ClientItemDetails
+import com.example.remoteshop.activities.FirstWelcome
 import com.example.remoteshop.activities.Seller.ProductAdapterSeller
 import com.example.remoteshop.backend.api_instance
 import com.example.remoteshop.backend.api_services
@@ -26,12 +29,15 @@ class AllProductsSeller : Fragment() {
 
     lateinit var binding: FragmentAllProductsSellerBinding
     lateinit var recyclerViewAdapter: ProductAdapterSeller
+    lateinit var builder: AlertDialog.Builder
+    var backPressedTime: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAllProductsSellerBinding.inflate(inflater)
+        builder = AlertDialog.Builder(requireContext())
 
         val id_ = activity?.intent!!.getIntExtra("id", 0)
         Log.d("era", "$id_")
@@ -40,6 +46,14 @@ class AllProductsSeller : Fragment() {
 
         search(id_)
 
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    builderText()
+                }
+            }
+        )
         return binding.root
     }
 
@@ -70,13 +84,11 @@ class AllProductsSeller : Fragment() {
                                 recyclerViewAdapter.setList(filteredList)
                                 recyclerViewAdapter.setOnItemClickListener(object : ProductAdapterSeller.onItemClickListener{
                                     override fun onItemClick(position: Int) {
-                                        Toast.makeText(activity, "You cliked $position", Toast.LENGTH_SHORT).show()
-//                        intent = Intent(this@AdminPage, ClientItemDetails::class.java)
-//                        intent.putExtra("id", clients[position].id)
-//                        intent.putExtra("username", clients[position].username)
-//                        intent.putExtra("email", clients[position].email)
-//                        intent.putExtra("city", clients[position].city)
-//                        startActivity(intent)
+                                        val bundle = Bundle()
+                                        bundle.putString("id", "${filteredList[position].id}")
+                                        val fragment = Product_Item_seller()
+                                        fragment.arguments = bundle
+                                        fragmentManager?.beginTransaction()?.replace(R.id.fragmentSellerpage, fragment)?.commit()
                                     }
                                 })
                                 recyclerViewAdapter.notifyDataSetChanged()
@@ -111,13 +123,11 @@ class AllProductsSeller : Fragment() {
                 recyclerViewAdapter.setList(products)
                 recyclerViewAdapter.setOnItemClickListener(object : ProductAdapterSeller.onItemClickListener{
                     override fun onItemClick(position: Int) {
-                        Toast.makeText(activity, "You cliked $position", Toast.LENGTH_SHORT).show()
-//                        intent = Intent(this@AdminPage, ClientItemDetails::class.java)
-//                        intent.putExtra("id", clients[position].id)
-//                        intent.putExtra("username", clients[position].username)
-//                        intent.putExtra("email", clients[position].email)
-//                        intent.putExtra("city", clients[position].city)
-//                        startActivity(intent)
+                        val bundle = Bundle()
+                        bundle.putString("id", "${products[position].id}")
+                        val fragment = Product_Item_seller()
+                        fragment.arguments = bundle
+                        fragmentManager?.beginTransaction()?.replace(R.id.fragmentSellerpage, fragment)?.commit()
                     }
                 })
                 recyclerViewAdapter.notifyDataSetChanged()
@@ -140,6 +150,20 @@ class AllProductsSeller : Fragment() {
             adapter = recyclerViewAdapter
         }
     }
+
+    private fun builderText() {
+        builder.setTitle("Exit Seller Account")
+            .setMessage("Do you want to log out from seller account,then you'll have to log in again!")
+            .setPositiveButton("Yes"){id, it ->
+                val intent = Intent(activity, FirstWelcome::class.java)
+                startActivity(intent)
+            }
+            .setNegativeButton("No"){id, it ->
+                id.cancel()
+            }
+            .show()
+    }
+
 
     companion object {
         @JvmStatic

@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.remoteshop.activities.FirstWelcome
 import com.example.remoteshop.backend.api_instance
 import com.example.remoteshop.backend.api_services
 import com.example.remoteshop.backend.users.Client
@@ -20,12 +22,14 @@ class AdminPage : AppCompatActivity() {
     lateinit var binding: ActivityAdminPageBinding
     lateinit var recyclerViewAdapter: SellersAdapter
     lateinit var recyclerViewAdapterClient: ClientAdapter
-
+    lateinit var builder: AlertDialog.Builder
+    var backPressedTime: Long = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAdminPageBinding.inflate(layoutInflater)
+        builder = AlertDialog.Builder(this)
         setContentView(binding.root)
 
         supportActionBar?.title = "Sellers"
@@ -57,7 +61,6 @@ class AdminPage : AppCompatActivity() {
                 recyclerViewAdapterClient.setList(clients)
                 recyclerViewAdapterClient.setOnItemClickListener(object : ClientAdapter.onItemClickListener{
                     override fun onItemClick(position: Int) {
-                        Toast.makeText(this@AdminPage, "You cliked $position", Toast.LENGTH_SHORT).show()
                         intent = Intent(this@AdminPage, ClientItemDetails::class.java)
                         intent.putExtra("id", clients[position].id)
                         intent.putExtra("username", clients[position].username)
@@ -99,7 +102,6 @@ class AdminPage : AppCompatActivity() {
                 recyclerViewAdapter.setList(sellers)
                 recyclerViewAdapter.setOnItemClickListener(object : SellersAdapter.onItemClickListener{
                     override fun onItemClick(position: Int) {
-                            Toast.makeText(this@AdminPage, "You cliked $position", Toast.LENGTH_SHORT).show()
                         intent = Intent(this@AdminPage, SellerItemDetails::class.java)
                         intent.putExtra("id", sellers[position].id)
                         intent.putExtra("username", sellers[position].username)
@@ -127,5 +129,23 @@ class AdminPage : AppCompatActivity() {
             recyclerViewAdapter = SellersAdapter()
             adapter = recyclerViewAdapter
         }
+    }
+
+    override fun onBackPressed() {
+        if (backPressedTime + 10 > System.currentTimeMillis()) {
+            super.onBackPressed()
+        } else {
+            builder.setTitle("Exit Admin Account")
+                .setMessage("Do you want to log out from admin account,then you'll have to log in again!")
+                .setPositiveButton("Yes"){id, it ->
+                    val intent = Intent(this, FirstWelcome::class.java)
+                    startActivity(intent)
+                }
+                .setNegativeButton("No"){id, it ->
+                    id.cancel()
+                }
+                .show()
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 }

@@ -43,6 +43,7 @@ class ClientItemDetails : AppCompatActivity() {
         binding.EmailClientAdminDet.text = email
         binding.usernameCleintAdminDet.text = username
         binding.cityClientAdminDet.text = city
+        binding.idOfClient.text = id.toString()
 
 
         binding.clientdelelteBntAdmin.setOnClickListener {

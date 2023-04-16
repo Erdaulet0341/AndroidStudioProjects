@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.remoteshop.R
 import com.example.remoteshop.activities.Seller.SellerPage
@@ -47,6 +49,15 @@ class AddProductSeller : Fragment() {
             addProduct(idSeller)
         }
 
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    fragmentManager?.beginTransaction()?.replace(R.id.fragmentSellerpage, AllProductsSeller.newInstance())?.commit()
+                    (activity as AppCompatActivity).supportActionBar?.title = "My products"
+                }
+            }
+        )
         return binding.root
     }
 

@@ -35,6 +35,7 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.newsHolder>() {
         val time = binding.timeNews
         val img = binding.imageView
         val clock = binding.clock
+        val number = binding.numberItems
 
         init{
             item.setOnClickListener{
@@ -46,6 +47,7 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.newsHolder>() {
             name.text = news.title
             title.text = news.source.name
             val day = news.publishedAt.subSequence(0, 10)
+            number.text = adapterPosition.toString()
 
             val cl = news.publishedAt.subSequence(11,16)
             time.text = "${day} day"

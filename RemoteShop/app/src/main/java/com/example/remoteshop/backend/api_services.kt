@@ -27,6 +27,12 @@ interface api_services {
         @Body client: Client
     ): Response<ResponseBody>
 
+    @PUT("clientById/{id}/")
+    fun updateClient(@Path("id") id:Int,  @Body client: Client): Call<Void>
+
+    @GET("clientById/{id}")
+    fun getClientById(@Path("id") id:Int): Call<Client>
+
     @GET("sellers")
     fun getAllSellers(): Call<List<Seller>>
 

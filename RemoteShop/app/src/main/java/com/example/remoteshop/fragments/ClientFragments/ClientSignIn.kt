@@ -52,14 +52,14 @@ class ClientSignIn : Fragment() {
                     override fun onResponse(call: Call<List<Client>>, response: Response<List<Client>>) {
                         var clients = response.body()
 
-                        Log.d("sellers", "${clients?.size}")
+                        Log.d("clients", "${clients?.size}")
                         var check = true
 
                         clients?.forEach {
                             if(it.email == email.text.toString() && it.password == password.text.toString()){
                                 val intent = Intent(activity, ClientPage::class.java)
                                 Toast.makeText(activity, "Login successful", Toast.LENGTH_SHORT).show()
-//                                intent.putExtra("id", it.id)
+                                intent.putExtra("id", it.id)
                                 startActivity(intent)
                                 check = false
                             }

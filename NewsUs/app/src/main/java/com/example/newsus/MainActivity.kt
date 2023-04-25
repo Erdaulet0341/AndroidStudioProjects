@@ -4,36 +4,39 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.newsus.api.API_instance
 import com.example.newsus.api.API_service
 import com.example.newsus.databinding.ActivityMainBinding
+import com.example.newsus.mvvm.RepositoryNews
 import com.example.newsus.mvvm.ViewModelNews
 import com.example.newsus.savedItems.SavedNews
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.create
 
 class MainActivity : AppCompatActivity() {
 
+    // Activity -> ViewModel -> Repository -> Retrofit == mvvm
     lateinit var binding: ActivityMainBinding
     lateinit var recyclerViewAdapter: NewsAdapter
     var backPressedTime: Long = 0
     lateinit var builder: AlertDialog.Builder
     private lateinit var viewModel: ViewModelNews
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         builder = AlertDialog.Builder(this)
-        viewModel = ViewModelProvider(this)[ViewModelNews::class.java]
+        viewModel = ViewModelProvider(this)[ViewModelNews()::class.java]
         setContentView(binding.root)
 
         supportActionBar?.title = "All News"
@@ -45,13 +48,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createData() {
-
         val api = API_instance.getApiInstance().create(API_service::class.java)
         val call = api.getDataFromAPI()
         viewModel.getAllNews()
         viewModel.observeMovieLiveData().observe(this, Observer { news ->
             recyclerViewAdapter.setList(news.articles)
         })
+        binding.progressBar.visibility = View.VISIBLE
 
         call.enqueue(object : Callback<News>{
 
@@ -85,6 +88,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                     recyclerViewAdapter.setList(listNews)
+                    binding.progressBar.visibility = View.INVISIBLE
                     recyclerViewAdapter.setOnItemClickListener(object : NewsAdapter.onItemClickListener{
                         override fun onItemClick(position: Int) {
 //                            Toast.makeText(this@MainActivity, "You cliked $position", Toast.LENGTH_SHORT).show()
@@ -109,6 +113,7 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<News>, t: Throwable) {
                 Toast.makeText(this@MainActivity, "No internet access try again!", Toast.LENGTH_SHORT).show()
                 Log.d("onFailure", "true")
+                binding.progressBar.visibility = View.INVISIBLE
             }
 
         })

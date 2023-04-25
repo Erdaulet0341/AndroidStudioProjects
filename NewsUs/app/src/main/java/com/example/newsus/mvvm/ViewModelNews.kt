@@ -11,13 +11,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ViewModelNews: ViewModel() {
+class ViewModelNews(): ViewModel() {
     private var movieLiveData = MutableLiveData<News>()
     fun getAllNews() {
-        val api = API_instance.getApiInstance().create(API_service::class.java)
-        val call = api.getDataFromAPI()
-        call.enqueue(object :
-            Callback<News> {
+        val repository = RepositoryNews(API_instance.getApiInstance().create(API_service::class.java))
+        val call = repository.getAllNewsRepository()
+        call.enqueue(object : Callback<News> {
             override fun onResponse(call: Call<News>, response: Response<News>) {
                 if (response.body()!=null){
                     movieLiveData.value = response.body()!!

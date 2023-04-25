@@ -60,6 +60,9 @@ interface api_services {
     @GET("products")
     fun getAllProducts(): Call<List<Product>>
 
+    @GET("popularProducts")
+    fun getPopularProducts(): Call<List<Product>>
+
     @GET("productById/{id}")
     fun getProductById(@Path("id") id:Int): Call<Product>
 

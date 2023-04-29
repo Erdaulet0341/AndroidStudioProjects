@@ -80,11 +80,11 @@ class HomePage : Fragment() {
                 recyclerViewAdapterProduct.setOnItemClickListener(object : ProductsAdapterClient.onItemClickListener{
                     override fun onItemClick(position: Int) {
                         Toast.makeText(activity, "$position clicked", Toast.LENGTH_SHORT).show()
-//                        val bundle = Bundle()
-//                        bundle.putString("id", "${products[position].id}")
-//                        val fragment = Product_Item_seller()
-//                        fragment.arguments = bundle
-//                        fragmentManager?.beginTransaction()?.replace(R.id.fragmentSellerpage, fragment)?.commit()
+                        val bundle = Bundle()
+                        bundle.putString("id", "${products[position].id}")
+                        val fragment = Product_details()
+                        fragment.arguments = bundle
+                        fragmentManager?.beginTransaction()?.replace(R.id.fragment_client_page, fragment)?.commit()
                     }
                 })
                 recyclerViewAdapterProduct.notifyDataSetChanged()

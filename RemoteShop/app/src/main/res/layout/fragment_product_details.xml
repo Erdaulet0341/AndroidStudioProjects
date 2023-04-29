@@ -53,15 +53,16 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/commentsRec"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_width="325dp"
+                    android:layout_height="127dp"
+                    android:layout_marginTop="50dp"
                     android:layout_marginEnd="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/companuNameDet" />
+                    app:layout_constraintHorizontal_bias="0.388"
+                    app:layout_constraintStart_toStartOf="@+id/textView57"
+                    app:layout_constraintTop_toBottomOf="@+id/companuNameDet"
+                    app:layout_constraintVertical_bias="1.0" />
 
                 <TextView
                     android:id="@+id/nameDet"
@@ -88,47 +89,48 @@
                     android:id="@+id/desDet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
                     android:text="TextView"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/nameDet"
-                    app:layout_constraintTop_toBottomOf="@+id/nameDet" />
+                    app:layout_constraintStart_toEndOf="@+id/textView54"
+                    app:layout_constraintTop_toTopOf="@+id/textView54" />
 
                 <TextView
                     android:id="@+id/priceDet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
                     android:text="TextView"
                     android:textColor="#DD4B4B"
                     android:textSize="20sp"
-                    app:layout_constraintStart_toStartOf="@+id/desDet"
-                    app:layout_constraintTop_toBottomOf="@+id/desDet" />
+                    app:layout_constraintBottom_toBottomOf="@+id/textView53"
+                    app:layout_constraintStart_toEndOf="@+id/textView53"
+                    app:layout_constraintTop_toTopOf="@+id/textView53" />
 
                 <TextView
                     android:id="@+id/quantutyDet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:text="TextView"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/priceDet"
-                    app:layout_constraintTop_toBottomOf="@+id/priceDet" />
+                    app:layout_constraintStart_toEndOf="@+id/textView52"
+                    app:layout_constraintTop_toTopOf="@+id/textView52" />
 
                 <TextView
                     android:id="@+id/companuNameDet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
                     android:shadowColor="@color/black"
                     android:text="TextView"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="italic"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ratingDet" />
+                    app:layout_constraintBottom_toBottomOf="@+id/textView42"
+                    app:layout_constraintStart_toEndOf="@+id/textView42"
+                    app:layout_constraintTop_toTopOf="@+id/textView42" />
 
                 <TextView
                     android:id="@+id/ratingDet"
@@ -136,28 +138,87 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:drawableRight="@drawable/ic_baseline_star_rate_24"
-                    android:text="Rating od this product: "
+                    android:text="Rating of this product: "
                     android:textColor="@color/black"
                     android:textSize="22sp"
-                    app:layout_constraintStart_toStartOf="@+id/quantutyDet"
-                    app:layout_constraintTop_toBottomOf="@+id/quantutyDet" />
+                    app:layout_constraintStart_toStartOf="@+id/textView52"
+                    app:layout_constraintTop_toBottomOf="@+id/textView52" />
 
                 <TextView
                     android:id="@+id/textView57"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="14dp"
                     android:text="Comments"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/commentsRec"
+                    app:layout_constraintStart_toStartOf="@+id/textView42" />
+
+                <TextView
+                    android:id="@+id/textView42"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Company name"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/ratingDet"
                     app:layout_constraintTop_toBottomOf="@+id/ratingDet" />
 
+                <TextView
+                    android:id="@+id/textView52"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Quantity: "
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/textView54"
+                    app:layout_constraintTop_toBottomOf="@+id/textView54" />
+
+                <TextView
+                    android:id="@+id/textView53"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Price: "
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/nameDet"
+                    app:layout_constraintTop_toBottomOf="@+id/nameDet" />
+
+                <TextView
+                    android:id="@+id/textView54"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Description: "
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/textView53"
+                    app:layout_constraintTop_toBottomOf="@+id/textView53" />
+
+                <Button
+                    android:id="@+id/addCommetBtn"
+                    android:layout_width="162dp"
+                    android:layout_height="36dp"
+                    android:text="add comment"
+                    app:layout_constraintBottom_toTopOf="@+id/commentsRec"
+                    app:layout_constraintEnd_toEndOf="@+id/commentsRec"
+                    app:layout_constraintTop_toTopOf="@+id/textView57" />
+
+                <TextView
+                    android:id="@+id/noCommet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/commentsRec" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

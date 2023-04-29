@@ -37,8 +37,8 @@ class Settings : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    fragmentManager?.beginTransaction()?.replace(R.id.fragment_client_page, HomePage.newInstance())?.commit()
-                    (activity as AppCompatActivity).supportActionBar?.title = "Home page"
+                    fragmentManager?.beginTransaction()?.replace(R.id.fragment_client_page, PrivacyPolicy.newInstance())?.commit()
+                    (activity as AppCompatActivity).supportActionBar?.title = "Privacy Policy"
                 }
             }
         )

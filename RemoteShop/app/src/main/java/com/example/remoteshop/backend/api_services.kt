@@ -3,6 +3,7 @@ package com.example.remoteshop.backend
 import android.util.Log
 import com.example.remoteshop.backend.products.Category
 import com.example.remoteshop.backend.products.Product
+import com.example.remoteshop.backend.products.Rating
 import com.example.remoteshop.backend.users.Admin
 import com.example.remoteshop.backend.users.Client
 import com.example.remoteshop.backend.users.Seller
@@ -63,6 +64,9 @@ interface api_services {
     @GET("popularProducts")
     fun getPopularProducts(): Call<List<Product>>
 
+    @GET("SellerById/{cat_id}/products")
+    fun getProductsByCategory(@Path("cat_id") cat_id:Int): Call<List<Product>>
+
     @GET("productById/{id}")
     fun getProductById(@Path("id") id:Int): Call<Product>
 
@@ -85,4 +89,14 @@ interface api_services {
 
     @GET("categotyByName/{name}")
     fun getCategory(@Path("name") name:String): Call<Category>
+
+
+    //ratings
+    @GET("ratings/{product_id}")
+    fun getProductRating(@Path("product_id") product_id:Int): Call<List<Rating>>
+
+    @POST("ratings/")
+    suspend fun addRating(
+        @Body product: Rating
+    ): Response<ResponseBody>
 }

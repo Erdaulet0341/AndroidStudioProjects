@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.remoteshop.R
 import com.example.remoteshop.activities.FirstWelcome
@@ -53,6 +54,11 @@ class HomePage : Fragment() {
 
         setupRecyclerViewProducts()
         createAdapterProducts()
+
+        binding.allproductsTexxt.setOnClickListener {
+            fragmentManager?.beginTransaction()?.replace(R.id.fragment_client_page, ListOfAllProducts.newInstance())?.commit()
+            (activity as AppCompatActivity).supportActionBar?.title = "All products"
+        }
 
 
         requireActivity().onBackPressedDispatcher.addCallback(
@@ -117,12 +123,12 @@ class HomePage : Fragment() {
                 recyclerViewAdapterCategory.setList(categories)
                 recyclerViewAdapterCategory.setOnItemClickListener(object : CategoriesAdapter.onItemClickListener{
                     override fun onItemClick(position: Int) {
-                        Toast.makeText(activity, "$position clicked", Toast.LENGTH_SHORT).show()
-//                        val bundle = Bundle()
-//                        bundle.putString("id", "${products[position].id}")
-//                        val fragment = Product_Item_seller()
-//                        fragment.arguments = bundle
-//                        fragmentManager?.beginTransaction()?.replace(R.id.fragmentSellerpage, fragment)?.commit()
+                        val bundle = Bundle()
+                        bundle.putString("id", "${categories[position].id}")
+                        bundle.putString("name", "${categories[position].name}")
+                        val fragment = CategotyProducts()
+                        fragment.arguments = bundle
+                        fragmentManager?.beginTransaction()?.replace(R.id.fragment_client_page, fragment)?.commit()
                     }
                 })
                 recyclerViewAdapterCategory.notifyDataSetChanged()

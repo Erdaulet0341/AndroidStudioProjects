@@ -30,7 +30,6 @@ class AllProductsSeller : Fragment() {
     lateinit var binding: FragmentAllProductsSellerBinding
     lateinit var recyclerViewAdapter: ProductAdapterSeller
     lateinit var builder: AlertDialog.Builder
-    var backPressedTime: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -32,12 +32,13 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView41"
+                android:id="@+id/allproductsTexxt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/button_bg"
-                android:gravity="center"
+                android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
+                android:paddingLeft="10px"
                 android:text="All Products"
                 android:textColor="@color/black"
                 android:textSize="26sp"
@@ -68,7 +69,7 @@
                 android:padding="5dp"
                 app:layout_constraintEnd_toEndOf="@+id/categoryRec"
                 app:layout_constraintStart_toStartOf="@+id/categoryRec"
-                app:layout_constraintTop_toBottomOf="@+id/textView41" />
+                app:layout_constraintTop_toBottomOf="@+id/allproductsTexxt" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/categoryRec"
@@ -89,7 +90,9 @@
                 android:padding="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView39" />
+                app:layout_constraintTop_toBottomOf="@+id/textView39" >
+
+            </androidx.recyclerview.widget.RecyclerView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </FrameLayout>

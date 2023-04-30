@@ -7,13 +7,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.remoteshop.R
 import com.example.remoteshop.databinding.ActivityClientPageBinding
-import com.example.remoteshop.databinding.ActivitySellerPageBinding
 import com.example.remoteshop.fragments.ClientFragments.HomePage
 import com.example.remoteshop.fragments.ClientFragments.Profile_Client
 import com.example.remoteshop.fragments.ClientFragments.Settings
-import com.example.remoteshop.fragments.SellerFragments.AddProductSeller
-import com.example.remoteshop.fragments.SellerFragments.AllProductsSeller
-import com.example.remoteshop.fragments.SellerFragments.SellerProfileFragment
+import com.example.remoteshop.fragments.ClientFragments.likedProducts
 
 class ClientPage : AppCompatActivity() {
 
@@ -48,6 +45,7 @@ class ClientPage : AppCompatActivity() {
                 R.id.likes_client ->{
                     supportActionBar?.title = "Liked products"
                     Toast.makeText(this@ClientPage, "Liked products", Toast.LENGTH_SHORT).show()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_client_page, likedProducts.newInstance()).commit()
                 }
                 R.id.cart_client ->{
                     supportActionBar?.title = "Cart"

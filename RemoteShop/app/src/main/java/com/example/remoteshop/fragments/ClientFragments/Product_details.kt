@@ -1,5 +1,8 @@
 package com.example.remoteshop.fragments.ClientFragments
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
@@ -10,17 +13,25 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.remoteshop.R
+import com.example.remoteshop.activities.Admin.AdminPage
+import com.example.remoteshop.activities.Client.ClientPage
 import com.example.remoteshop.backend.api_instance
 import com.example.remoteshop.backend.api_services
+import com.example.remoteshop.backend.products.LikeProduct
 import com.example.remoteshop.backend.products.Product
 import com.example.remoteshop.backend.products.Rating
 import com.example.remoteshop.backend.users.Seller
 import com.example.remoteshop.databinding.FragmentProductDetailsBinding
 import com.example.remoteshop.fragments.ClientFragments.products_adapters.ProductsAdapterClient
 import com.example.remoteshop.fragments.ClientFragments.products_adapters.RatingAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,6 +52,7 @@ class Product_details : Fragment() {
         val idProduct = args?.getString("id")?.toInt()!!
         val idClient = activity?.intent!!.getIntExtra("id", 0)
 
+        addLikeCol(idProduct, idClient)
         createPage(idProduct)
 
         setupRating()
@@ -56,16 +68,133 @@ class Product_details : Fragment() {
             fragmentManager?.beginTransaction()?.replace(R.id.fragment_client_page, fragment)?.commit()
         }
 
+        binding.addLikes.setOnClickListener {
+            addLike(idProduct, idClient)
+        }
+
+
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    fragmentManager?.beginTransaction()?.replace(R.id.fragment_client_page, HomePage.newInstance())?.commit()
+                    val intent = Intent(activity, ClientPage::class.java)
+                    intent.putExtra("id", idClient)
+                    startActivity(intent)
+//                    fragmentManager?.beginTransaction()?.replace(R.id.fragment_client_page, HomePage.newInstance())?.commit()
                     (activity as AppCompatActivity).supportActionBar?.title = "Home page"
                 }
             }
         )
 
         return binding.root
+    }
+
+    private fun addLikeCol(idProduct: Int, idClient: Int){
+        val retrofit = api_instance.getApiInstance()
+        val service = retrofit.create(api_services::class.java)
+        val callLikes = service.getClientLikes(idClient)
+
+        callLikes.enqueue(object: Callback<List<LikeProduct>>{
+            override fun onResponse(
+                call: Call<List<LikeProduct>>,
+                response: Response<List<LikeProduct>>
+            )
+            {
+                val likes = response.body()!!
+                var check = true
+                likes.forEach {
+                    if(it.product == idProduct){
+                        check = false
+                    }
+                }
+                if(!check)  {
+                    binding.addLikes.text = "DELETE FROM LIKE"
+                    binding.addLikes.setBackgroundColor(Color.RED)
+                }
+                else{
+                    binding.addLikes.text = "ADD TO LIKE"
+                    binding.addLikes.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.purple_500))
+                }
+            }
+            override fun onFailure(call: Call<List<LikeProduct>>, t: Throwable) {}
+        })
+    }
+
+    private fun addLike(idProduct: Int, idClient: Int) {
+        val retrofit = api_instance.getApiInstance()
+        val service = retrofit.create(api_services::class.java)
+
+        val callLikes = service.getClientLikes(idClient)
+
+        callLikes.enqueue(object: Callback<List<LikeProduct>>{
+            override fun onResponse(
+                call: Call<List<LikeProduct>>,
+                response: Response<List<LikeProduct>>
+            )
+            {
+                val likes = response.body()!!
+                var check = true
+                likes.forEach {
+                    if(it.product == idProduct){
+                        check = false
+                    }
+                }
+                if(check)  {
+                    binding.addLikes.text = "DELETE FROM LIKE"
+                    binding.addLikes.setBackgroundColor(Color.RED)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        val call = service.addLikes(
+                            LikeProduct(
+                                null,
+                                idClient,
+                                idProduct
+                            )
+                        )
+                        Log.d("es", "${call.isSuccessful}")
+                        Log.d("me", "${call.message()}")
+
+                        Thread(Runnable {
+                            activity?.runOnUiThread(java.lang.Runnable {
+                                Toast.makeText(activity, "Successfully added", Toast.LENGTH_SHORT)
+                                    .show()
+//                                    val bundle = Bundle()
+//                                    bundle.putString("id", "$idProduct")
+//                                    val fragment = Product_details()
+//                                    fragment.arguments = bundle
+//                                    fragmentManager?.beginTransaction()?.replace(R.id.fragment_client_page, fragment)?.commit()
+                            })
+                        }).start()
+                    }
+                }
+                else{
+                    binding.addLikes.text = "ADD TO LIKE"
+                    binding.addLikes.setBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.purple_700))
+                    val callDelete = service.deleteFromLikes(idProduct)
+                    callDelete.enqueue(object: Callback<ResponseBody>{
+                        override fun onResponse(
+                            call: Call<ResponseBody>,
+                            response: Response<ResponseBody>
+                        ) {
+                            if(response.isSuccessful){
+                                Toast.makeText(activity, "Delete success", Toast.LENGTH_SHORT).show()
+                            }
+                            else{
+                                Toast.makeText(activity, "${response.message()}", Toast.LENGTH_SHORT).show()
+
+                            }
+                        }
+
+                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                            TODO("Not yet implemented")
+                        }
+
+                    })
+                }
+            }
+
+            override fun onFailure(call: Call<List<LikeProduct>>, t: Throwable) {
+            }
+
+        })
     }
 
     private fun fillRating(idProduct: Int) {

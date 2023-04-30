@@ -7,8 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.remoteshop.R
+import com.example.remoteshop.backend.api_instance
+import com.example.remoteshop.backend.api_services
 import com.example.remoteshop.backend.products.Product
+import com.example.remoteshop.backend.users.Seller
 import com.example.remoteshop.databinding.ClientProductItemBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ProductsAdapterClient: RecyclerView.Adapter<ProductsAdapterClient.productHolder>() {
 
@@ -46,8 +52,18 @@ class ProductsAdapterClient: RecyclerView.Adapter<ProductsAdapterClient.productH
         fun bindProduct(product: Product){
             name.text = product.name
             price.text = "${product.price.toString()} tg"
-            company.text = "Kaspi.kz"
             des.text = product.description
+
+            val retrofit = api_instance.getApiInstance()
+            val service = retrofit.create(api_services::class.java)
+            val callSeller = service.getSellerById(product.seller)
+            callSeller.enqueue(object : Callback<Seller> {
+                override fun onResponse(call: Call<Seller>, response: Response<Seller>) {
+                    company.text = response.body()!!.company_name
+                }
+                override fun onFailure(call: Call<Seller>, t: Throwable) {}
+            })
+
             val url = product.imageURL
             Glide.with(img)
                 .load(url)

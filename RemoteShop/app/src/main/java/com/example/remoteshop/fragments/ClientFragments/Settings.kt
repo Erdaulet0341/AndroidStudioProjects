@@ -26,8 +26,6 @@ class Settings : Fragment() {
         binding = FragmentSettingsBinding.inflate(inflater)
         builder = AlertDialog.Builder(requireContext())
 
-
-        binding.paymentClient.setOnClickListener { payment()}
         binding.termstouse.setOnClickListener { terms()}
         binding.logOutClient.setOnClickListener {logout()}
         binding.help.setOnClickListener {help()}

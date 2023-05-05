@@ -13,12 +13,12 @@ import com.example.remoteshop.backend.api_instance
 import com.example.remoteshop.backend.api_services
 import com.example.remoteshop.backend.users.Seller
 import com.example.remoteshop.databinding.FragmentSellerRegisterBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.example.remoteshop.fragments.ClientFragments.ClientSignIn
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Runnable
 import java.util.regex.Pattern
 
 class SellerRegister : Fragment() {
@@ -91,7 +91,11 @@ class SellerRegister : Fragment() {
                                         activity?.runOnUiThread(java.lang.Runnable {
                                             Toast.makeText(activity, "Successfully registered", Toast.LENGTH_SHORT).show()
                                         })
-                                    }).start()                              }
+                                    }).start()
+                                    MainScope().launch {
+                                        withContext(Dispatchers.Default) {}
+                                        fragmentManager?.beginTransaction()?.replace(R.id.seller_frag, SellerSignIn.newInstance())?.commit()
+                                    }}
                                 else{
                                     Thread(Runnable {
                                         activity?.runOnUiThread(java.lang.Runnable {

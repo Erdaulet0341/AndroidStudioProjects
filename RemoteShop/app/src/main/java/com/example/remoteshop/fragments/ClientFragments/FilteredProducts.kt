@@ -33,25 +33,23 @@ class FilteredProducts : Fragment() {
     ): View? {
         binding = FragmentFilteredProductsBinding.inflate((inflater))
         (activity as AppCompatActivity).supportActionBar?.title = "Filtered Products"
-
-        val idClient = activity?.intent!!.getIntExtra("id", 0)
         val args = arguments
         val category = args?.getString("category")!!
         val company = args?.getString("company")!!
-        val ratingFrom = args?.getString("ratingFrom")?.toInt()!!
-        val ratingTo = args?.getString("ratingTo")?.toInt()!!
         val priceFrom = args?.getString("priceFrom")?.toInt()!!
         val priceTo = args?.getString("priceTo")?.toInt()!!
+        val sortAsc = args?.getBoolean("sortAsc")!!
+        val sortDesc = args?.getBoolean("sortDesc")!!
 
         Log.d("cat", category)
         Log.d("com", company)
-        Log.d("rF", ratingFrom.toString())
-        Log.d("rT", ratingTo.toString())
         Log.d("pF", priceFrom.toString())
         Log.d("pT", priceTo.toString())
+        Log.d("sA", sortAsc.toString())
+        Log.d("sD", sortDesc.toString())
 
         setupRecyclerViewProducts()
-        createAdapterProducts(category, company)
+        createAdapterProducts(category, company, priceFrom, priceTo, sortAsc, sortDesc)
 
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner, object : OnBackPressedCallback(true) {
@@ -64,7 +62,8 @@ class FilteredProducts : Fragment() {
         return binding.root
     }
 
-    private fun createAdapterProducts(category:String, company : String) {
+    private fun createAdapterProducts(category:String, company : String, priceFrom:Int,
+                                      priceTo:Int, sortAsc:Boolean, sortDesc:Boolean) {
         val api = api_instance.getApiInstance().create(api_services::class.java)
 
         if(category != "no" && company != "no"){
@@ -79,16 +78,27 @@ class FilteredProducts : Fragment() {
                             val callComCat = api.getComCat(companyId, categoryId)
                             callComCat.enqueue(object : Callback<List<Product>>{
                                 override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
-                                    val filterList = response.body()!! as ArrayList<Product>
-                                    if(filterList.size == 0){
+                                    val list = response.body()!! as ArrayList<Product>
+                                    var filteredList = ArrayList<Product>()
+                                    list.forEach {
+                                        if(it.price in priceFrom..priceTo){
+                                            filteredList.add(it)
+                                        }
+                                    }
+                                    if(filteredList.size == 0){
                                         binding.noListFilter.text = "Don't match any product"
                                     }
-                                    recyclerViewAdapterProduct.setList(filterList)
+                                    if(sortDesc){
+                                        filteredList.sortByDescending { it.price }
+                                    }
+                                    else if(sortAsc) {
+                                        filteredList.sortBy { it.price }
+                                    }
+                                    recyclerViewAdapterProduct.setList(filteredList)
                                     recyclerViewAdapterProduct.setOnItemClickListener(object : ProductsAdapterClient.onItemClickListener{
                                         override fun onItemClick(position: Int) {
-                                            Toast.makeText(activity, "$position clicked", Toast.LENGTH_SHORT).show()
                                             val bundle = Bundle()
-                                            bundle.putString("id", "${filterList[position].id}")
+                                            bundle.putString("id", "${filteredList[position].id}")
                                             val fragment = Product_details()
                                             fragment.arguments = bundle
                                             fragmentManager?.beginTransaction()?.replace(R.id.fragment_client_page, fragment)?.commit()
@@ -113,16 +123,27 @@ class FilteredProducts : Fragment() {
                     val callComCat = api.getSelletProducts(companyId)
                     callComCat.enqueue(object : Callback<List<Product>>{
                         override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
-                            val filterList = response.body()!! as ArrayList<Product>
-                            if(filterList.size == 0){
+                            val list = response.body()!! as ArrayList<Product>
+                            var filteredList = ArrayList<Product>()
+                            list.forEach {
+                                if(it.price in priceFrom..priceTo){
+                                    filteredList.add(it)
+                                }
+                            }
+                            if(filteredList.size == 0){
                                 binding.noListFilter.text = "Don't match any product"
                             }
-                            recyclerViewAdapterProduct.setList(filterList)
+                            if(sortDesc){
+                                filteredList.sortByDescending { it.price }
+                            }
+                            else if(sortAsc) {
+                                filteredList.sortBy { it.price }
+                            }
+                            recyclerViewAdapterProduct.setList(filteredList)
                             recyclerViewAdapterProduct.setOnItemClickListener(object : ProductsAdapterClient.onItemClickListener{
                                 override fun onItemClick(position: Int) {
-                                    Toast.makeText(activity, "$position clicked", Toast.LENGTH_SHORT).show()
                                     val bundle = Bundle()
-                                    bundle.putString("id", "${filterList[position].id}")
+                                    bundle.putString("id", "${filteredList[position].id}")
                                     val fragment = Product_details()
                                     fragment.arguments = bundle
                                     fragmentManager?.beginTransaction()?.replace(R.id.fragment_client_page, fragment)?.commit()
@@ -147,15 +168,26 @@ class FilteredProducts : Fragment() {
                     callCategoryList.enqueue(object : Callback<List<Product>>{
                         override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
                             val list = response.body()!! as ArrayList<Product>
-                            if(list.size == 0){
+                            var filteredList = ArrayList<Product>()
+                            list.forEach {
+                                if(it.price in priceFrom..priceTo){
+                                    filteredList.add(it)
+                                }
+                            }
+                            if(filteredList.size == 0){
                                 binding.noListFilter.text = "Don't match any product"
                             }
-                            recyclerViewAdapterProduct.setList(list)
+                            if(sortDesc){
+                                filteredList.sortByDescending { it.price }
+                            }
+                            else if(sortAsc) {
+                                filteredList.sortBy { it.price }
+                            }
+                            recyclerViewAdapterProduct.setList(filteredList)
                             recyclerViewAdapterProduct.setOnItemClickListener(object : ProductsAdapterClient.onItemClickListener{
                                 override fun onItemClick(position: Int) {
-                                    Toast.makeText(activity, "$position clicked", Toast.LENGTH_SHORT).show()
                                     val bundle = Bundle()
-                                    bundle.putString("id", "${list[position].id}")
+                                    bundle.putString("id", "${filteredList[position].id}")
                                     val fragment = Product_details()
                                     fragment.arguments = bundle
                                     fragmentManager?.beginTransaction()?.replace(R.id.fragment_client_page, fragment)?.commit()
@@ -167,6 +199,41 @@ class FilteredProducts : Fragment() {
                     })
                 }
                 override fun onFailure(call: Call<Category>, t: Throwable) {}
+            })
+        }
+        else{
+            val call = api.getAllProducts()
+            call.enqueue(object : Callback<List<Product>>{
+                override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
+                    var list = response.body()!! as ArrayList<Product>
+                    var filteredList = ArrayList<Product>()
+                    list.forEach {
+                        if(it.price in priceFrom..priceTo){
+                            filteredList.add(it)
+                        }
+                    }
+                    if(filteredList.size == 0){
+                        binding.noListFilter.text = "Don't match any product"
+                    }
+                    if(sortDesc){
+                        filteredList.sortByDescending { it.price }
+                    }
+                    else if(sortAsc) {
+                        filteredList.sortBy { it.price }
+                    }
+                    recyclerViewAdapterProduct.setList(filteredList)
+                    recyclerViewAdapterProduct.setOnItemClickListener(object : ProductsAdapterClient.onItemClickListener{
+                        override fun onItemClick(position: Int) {
+                            val bundle = Bundle()
+                            bundle.putString("id", "${filteredList[position].id}")
+                            val fragment = Product_details()
+                            fragment.arguments = bundle
+                            fragmentManager?.beginTransaction()?.replace(R.id.fragment_client_page, fragment)?.commit()
+                        }
+                    })
+                    recyclerViewAdapterProduct.notifyDataSetChanged()
+                }
+                override fun onFailure(call: Call<List<Product>>, t: Throwable) {}
             })
         }
     }

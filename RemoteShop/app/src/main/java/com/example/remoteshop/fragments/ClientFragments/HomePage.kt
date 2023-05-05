@@ -85,7 +85,6 @@ class HomePage : Fragment() {
                 recyclerViewAdapterProduct.setList(products)
                 recyclerViewAdapterProduct.setOnItemClickListener(object : ProductsAdapterClient.onItemClickListener{
                     override fun onItemClick(position: Int) {
-                        Toast.makeText(activity, "$position clicked", Toast.LENGTH_SHORT).show()
                         val bundle = Bundle()
                         bundle.putString("id", "${products[position].id}")
                         val fragment = Product_details()
@@ -161,7 +160,6 @@ class HomePage : Fragment() {
                 recyclerViewAdapterPopular.setList(products)
                 recyclerViewAdapterPopular.setOnItemClickListener(object : PopularProductAdapter.onItemClickListener{
                     override fun onItemClick(position: Int) {
-                        Toast.makeText(activity, "$position clicked", Toast.LENGTH_SHORT).show()
                         val bundle = Bundle()
                         bundle.putString("id", "${products[position].id}")
                         val fragment = Product_details()

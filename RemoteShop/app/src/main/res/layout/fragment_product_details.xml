@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".fragments.ClientFragments.Product_details">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -80,6 +82,7 @@
                     android:id="@+id/imgDet"
                     android:layout_width="352dp"
                     android:layout_height="188dp"
+                    android:layout_marginTop="4dp"
                     android:src="@drawable/product"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +90,7 @@
 
                 <TextView
                     android:id="@+id/desDet"
-                    android:layout_width="wrap_content"
+                    android:layout_width="600px"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:text="TextView"
@@ -161,7 +164,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Company name"
+                    android:text="Company name:"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/ratingDet"
                     app:layout_constraintTop_toBottomOf="@+id/ratingDet" />

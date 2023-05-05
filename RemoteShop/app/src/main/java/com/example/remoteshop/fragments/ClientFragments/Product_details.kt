@@ -21,6 +21,7 @@ import com.example.remoteshop.activities.Admin.AdminPage
 import com.example.remoteshop.activities.Client.ClientPage
 import com.example.remoteshop.backend.api_instance
 import com.example.remoteshop.backend.api_services
+import com.example.remoteshop.backend.products.Cart
 import com.example.remoteshop.backend.products.LikeProduct
 import com.example.remoteshop.backend.products.Product
 import com.example.remoteshop.backend.products.Rating
@@ -72,6 +73,10 @@ class Product_details : Fragment() {
             addLike(idProduct, idClient)
         }
 
+        binding.addcart.setOnClickListener {
+            addCart(idProduct, idClient)
+        }
+
 
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner, object : OnBackPressedCallback(true) {
@@ -86,6 +91,51 @@ class Product_details : Fragment() {
         )
 
         return binding.root
+    }
+
+    private fun addCart(idProduct: Int, idClient: Int) {
+        val retrofit = api_instance.getApiInstance()
+        val service = retrofit.create(api_services::class.java)
+        val callCart = service.getClientCart(idClient)
+        callCart.enqueue(object : Callback<List<Cart>>{
+            override fun onResponse(call: Call<List<Cart>>, response: Response<List<Cart>>) {
+                val carts = response.body()!!
+                var check = true
+                carts.forEach {
+                    if(it.product == idProduct){
+                        check = false
+                    }
+                }
+                if(check)  {
+                    val callSeller = service.getProductById(idProduct)
+                    callSeller.enqueue(object : Callback<Product>{
+                        override fun onResponse(call: Call<Product>, response: Response<Product>) {
+                            CoroutineScope(Dispatchers.IO).launch {
+                                val call = service.addCarts(
+                                    Cart(
+                                        null,
+                                        "cart",
+                                        idClient,
+                                        idProduct,
+                                        response.body()?.seller!!
+                                        )
+                                )
+
+                                Thread(Runnable {
+                                    activity?.runOnUiThread(java.lang.Runnable {
+                                        Toast.makeText(activity, "Successfully added to cart", Toast.LENGTH_SHORT).show() }) }).start()
+                            }
+                        }
+                        override fun onFailure(call: Call<Product>, t: Throwable) {}
+                    })
+                }
+                else{
+                    Toast.makeText(activity, "Already added!", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+            override fun onFailure(call: Call<List<Cart>>, t: Throwable) {}
+        })
     }
 
     private fun addLikeCol(idProduct: Int, idClient: Int){
@@ -149,18 +199,10 @@ class Product_details : Fragment() {
                                 idProduct
                             )
                         )
-                        Log.d("es", "${call.isSuccessful}")
-                        Log.d("me", "${call.message()}")
-
                         Thread(Runnable {
                             activity?.runOnUiThread(java.lang.Runnable {
                                 Toast.makeText(activity, "Successfully added", Toast.LENGTH_SHORT)
                                     .show()
-//                                    val bundle = Bundle()
-//                                    bundle.putString("id", "$idProduct")
-//                                    val fragment = Product_details()
-//                                    fragment.arguments = bundle
-//                                    fragmentManager?.beginTransaction()?.replace(R.id.fragment_client_page, fragment)?.commit()
                             })
                         }).start()
                     }
@@ -182,18 +224,11 @@ class Product_details : Fragment() {
 
                             }
                         }
-
-                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                            TODO("Not yet implemented")
-                        }
-
+                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {}
                     })
                 }
             }
-
-            override fun onFailure(call: Call<List<LikeProduct>>, t: Throwable) {
-            }
-
+            override fun onFailure(call: Call<List<LikeProduct>>, t: Throwable) {}
         })
     }
 

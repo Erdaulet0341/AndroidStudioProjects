@@ -34,14 +34,10 @@ class Filter : Fragment() {
 
         var listOfCategories = AllCategoryNames()
         var listOfCompanies = AllCompanyNames()
-        var listOfRating = arrayListOf(1,2,3,4,5)
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.drop_down_category, listOfCategories)
         binding.autoCategory.setAdapter(arrayAdapter)
         val arrayAdapter2 = ArrayAdapter(requireContext(), R.layout.drop_down_category, listOfCompanies)
         binding.autoCompany.setAdapter(arrayAdapter2)
-        val arrayAdapter3 = ArrayAdapter(requireContext(), R.layout.drop_down_category, listOfRating)
-        binding.autoRatingFrom.setAdapter(arrayAdapter3)
-        binding.autoRatingTo.setAdapter(arrayAdapter3)
 
         binding.applyBtn.setOnClickListener {
             filteringFun()
@@ -61,15 +57,13 @@ class Filter : Fragment() {
     private fun filteringFun() {
         var category = binding.autoCategory
         var company = binding.autoCompany
-        var ratingFrom = binding.autoRatingFrom
-        var ratingTo = binding.autoRatingTo
         var priceFrom = binding.priceFrom
         var priceTo = binding.priceTo
+        var checkAsc = binding.ascendingSort
+        var checkDesc = binding.descendingSort
 
         var categoryText = "no"
         var companyText = "no"
-        var ratingFromText = "0"
-        var ratingToText = "0"
         var priceFromText = "0"
         var priceToText = "500000000"
 
@@ -77,12 +71,6 @@ class Filter : Fragment() {
 
         if(category.text.toString().isNotEmpty()) categoryText = category.text.toString()
         if(company.text.toString().isNotEmpty()) companyText = company.text.toString()
-
-        if(ratingFrom.text.toString().isEmpty()) ratingFromText = "0"
-        else ratingFromText = ratingFrom.text.toString()
-        if(ratingTo.text.toString().isEmpty()) ratingToText = "5"
-        else ratingToText = ratingTo.text.toString()
-
         if(priceTo.text.toString().isEmpty()) priceToText = "500000000"
         else{
             if(!priceTo.text.toString().matches(num)){
@@ -102,19 +90,18 @@ class Filter : Fragment() {
                 priceFromText = priceFrom.text.toString().toInt().toString()
             }
         }
-
-        if(ratingFromText.toInt() >= ratingToText.toInt()){
-            ratingFrom.error = "Rating From must be small Rating To"
-        }
-        else if(priceFromText.toInt() >= priceToText.toInt()){
+        if(priceFromText.toInt() >= priceToText.toInt()){
             priceFrom.error = "Price From must be small Price To"
+        }
+        else if(checkAsc.isChecked && checkDesc.isChecked){
+            Toast.makeText(activity, "Select one of sort type", Toast.LENGTH_SHORT).show()
         }
         else{
             val bundle = Bundle()
             bundle.putString("category", categoryText)
             bundle.putString("company", companyText)
-            bundle.putString("ratingTo", ratingToText)
-            bundle.putString("ratingFrom", ratingFromText)
+            bundle.putBoolean("sortAsc", checkAsc.isChecked)
+            bundle.putBoolean("sortDesc", checkDesc.isChecked)
             bundle.putString("priceFrom", priceFromText)
             bundle.putString("priceTo", priceToText)
 

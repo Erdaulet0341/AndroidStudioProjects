@@ -81,7 +81,6 @@ class likedProducts : Fragment() {
                                                 recyclerViewAdapterProduct.setList(filteredList)
                                                 recyclerViewAdapterProduct.setOnItemClickListener(object : ProductsAdapterClient.onItemClickListener{
                                                     override fun onItemClick(position: Int) {
-                                                        Toast.makeText(activity, "$position clicked", Toast.LENGTH_SHORT).show()
                                                         val bundle = Bundle()
                                                         bundle.putString("id", "${filteredList[position].id}")
                                                         Log.d("idOf" , filteredList[position].id.toString())
@@ -140,7 +139,6 @@ class likedProducts : Fragment() {
                                 recyclerViewAdapterProduct.setList(listOfProduct)
                                 recyclerViewAdapterProduct.setOnItemClickListener(object : ProductsAdapterClient.onItemClickListener{
                                     override fun onItemClick(position: Int) {
-                                        Toast.makeText(activity, "$position clicked", Toast.LENGTH_SHORT).show()
                                         val bundle = Bundle()
                                         bundle.putString("id", "${listOfProduct[position].id}")
                                         Log.d("idOf" , listOfProduct[position].id.toString())

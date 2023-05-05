@@ -98,7 +98,6 @@ class ClientRegister : Fragment() {
                                     MainScope().launch {
                                         withContext(Dispatchers.Default) {}
                                         fragmentManager?.beginTransaction()?.replace(R.id.client_frag, ClientSignIn.newInstance())?.commit()
-                                        (activity as AppCompatActivity).supportActionBar?.title = "My products"
                                     }
                                 }
                                 else{

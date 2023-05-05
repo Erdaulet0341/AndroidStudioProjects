@@ -11,29 +11,12 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/payment_client"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/set_btn"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
-            android:drawablePadding="10dp"
-            android:paddingRight="10dp"
-            android:text="Payment"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView25" />
-
-        <TextView
             android:id="@+id/termstouse"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/set_btn"
             android:drawableRight="@drawable/ic_baseline_keyboard_arrow_right_24"
             android:drawablePadding="10dp"
@@ -41,10 +24,9 @@
             android:text="Terms of Use"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/payment_client"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/payment_client"
-            app:layout_constraintTop_toBottomOf="@+id/payment_client" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
         <TextView
             android:id="@+id/PrivacyPolicy"
@@ -58,9 +40,8 @@
             android:text="Privacy policy"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/payment_client"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/payment_client"
+            app:layout_constraintEnd_toEndOf="@+id/help"
+            app:layout_constraintStart_toStartOf="@+id/help"
             app:layout_constraintTop_toBottomOf="@+id/help" />
 
         <TextView
@@ -75,9 +56,8 @@
             android:text="Help"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/payment_client"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/payment_client"
+            app:layout_constraintEnd_toEndOf="@+id/termstouse"
+            app:layout_constraintStart_toStartOf="@+id/termstouse"
             app:layout_constraintTop_toBottomOf="@+id/termstouse" />
 
         <TextView
@@ -92,9 +72,8 @@
             android:text="Log out"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/payment_client"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/payment_client"
+            app:layout_constraintEnd_toEndOf="@+id/PrivacyPolicy"
+            app:layout_constraintStart_toStartOf="@+id/PrivacyPolicy"
             app:layout_constraintTop_toBottomOf="@+id/PrivacyPolicy" />
 
         <TextView
@@ -107,8 +86,8 @@
             android:textColor="@color/black"
             android:textSize="26sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/payment_client"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="16dp" />
 
         <TextView
             android:id="@+id/textView26"

@@ -1,10 +1,7 @@
 package com.example.remoteshop.backend
 
 import android.util.Log
-import com.example.remoteshop.backend.products.Category
-import com.example.remoteshop.backend.products.LikeProduct
-import com.example.remoteshop.backend.products.Product
-import com.example.remoteshop.backend.products.Rating
+import com.example.remoteshop.backend.products.*
 import com.example.remoteshop.backend.users.Admin
 import com.example.remoteshop.backend.users.Client
 import com.example.remoteshop.backend.users.Seller
@@ -126,5 +123,21 @@ interface api_services {
     fun getComCat(@Path("idCom") idCom:Int,
                   @Path("idCat") idCat:Int): Call<List<Product>>
 
+    //cart
+    @GET("carts/{client_id}")
+    fun getClientCart(@Path("client_id") client_id: Int): Call<List<Cart>>
 
+    @POST("carts/")
+    suspend fun addCarts(
+        @Body cart: Cart
+    ): Response<ResponseBody>
+
+    @DELETE("cartsDel/{id}/")
+    fun deleteFromCart(@Path("id") id:Int): Call<ResponseBody>
+
+    @GET("cartsSeller/{seller_id}")
+    fun getSellerOrder(@Path("seller_id") seller_id: Int): Call<List<Cart>>
+
+    @PUT("cartsUpdate/{id}/")
+    fun updateCart(@Path("id") id:Int,  @Body cart: Cart): Call<Void>
 }

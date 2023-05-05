@@ -99,57 +99,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Rating"
+            android:text="Sort by price"
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout1"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout1" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout2"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="155dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/input_bg"
-            android:hint="0"
-            app:layout_constraintStart_toStartOf="@+id/textView58"
-            app:layout_constraintTop_toBottomOf="@+id/textView58"
-            app:startIconDrawable="@drawable/ic_baseline_call_missed_24">
-
-            <AutoCompleteTextView
-                android:id="@+id/autoRatingFrom"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:inputType="none"
-                android:textSize="14sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout3"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="155dp"
-            android:layout_height="55dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/input_bg"
-            android:hint="5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textInputLayout2"
-            app:layout_constraintTop_toTopOf="@+id/textInputLayout2"
-            app:startIconDrawable="@drawable/ic_baseline_call_missed_outgoing_24">
-
-            <AutoCompleteTextView
-                android:id="@+id/autoRatingTo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:inputType="none"
-                android:textSize="14sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textView56"
@@ -159,8 +113,8 @@
             android:text="Price"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+            app:layout_constraintStart_toStartOf="@+id/descendingSort"
+            app:layout_constraintTop_toBottomOf="@+id/descendingSort" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/priceFromfdsafasfd"
@@ -199,6 +153,22 @@
                 android:inputType="text"
                 android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/descendingSort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descending"
+            app:layout_constraintStart_toStartOf="@+id/textView58"
+            app:layout_constraintTop_toBottomOf="@+id/textView58" />
+
+        <CheckBox
+            android:id="@+id/ascendingSort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ascending"
+            app:layout_constraintStart_toStartOf="@+id/priceFromfdsafd"
+            app:layout_constraintTop_toTopOf="@+id/descendingSort" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

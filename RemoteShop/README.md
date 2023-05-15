@@ -20,17 +20,20 @@ When client clicked add comment button opened fragment with one input view and a
 
 ![]()
 
-3) Liked products. Client can add products to liked products.
+3) All products. In this page client can filter products by category, company and price from min to max. Sort products by price.
 
 ![]()
 
-4) Cart. If client added products to the cart this products is displayed in this page. From this page client can send message(order) for the seller.
+4) Liked products. Client can add products to liked products.
 
+![]()
+
+5) Cart. If client added products to the cart this products is displayed in this page. From this page client can send message(order) for the seller.
 First icon of cart shooping_cart, after sending message icon will be clock, if seller accepted this order icon of this cart changed to check else to block.
 
 ![]()
 
-5) Profile and setting pages. In profile page client can change username, email, city and password. In setting page terms to use, help, privacy policy pages and log out button.
+6) Profile and setting pages. In profile page client can change username, email, city and password. In setting page terms to use, help, privacy policy pages and log out button.
 
 ![]()
 
@@ -56,4 +59,4 @@ First icon of cart shooping_cart, after sending message icon will be clock, if s
 
 Admins can see all sellers and clients and can delete them
 
-![]()
+![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(16).gif)

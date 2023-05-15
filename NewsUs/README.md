@@ -9,7 +9,7 @@ Have bottom navigation view, drawer layout and navigation view.
 
 ![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/NewsUs/Readme/ezgif.com-resize%20(10).gif)
 
-# 2. news details
+# 2. News details
 In this page image, content, author of publication and one button for saving news.
 
 ![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/NewsUs/Readme/ezgif.com-resize%20(11).gif)

@@ -1,13 +1,13 @@
 # Remote Shop
 Application for buying and selling any products for clients and sellers.
-Backend is in [django rest framework](https://github.com/Erdaulet0341/android-back). This django project unsafe(authorization is not with tokens, all passwords not hashed), because the main focus was allocated for android side, not are django side))
+Backend is in [django rest framework](https://github.com/Erdaulet0341/android-back). This django project unsafe(authorization is not with tokens, all passwords not hashed), because the main focus was allocated for android side, not are django side))))
 
 
 In this application 3 role, client, seller and admin. For full project used 11 activity, 24 fragment, 8 adapter and 8 data classes.
 
 # Welcome page
 
-![]()
+![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(23).gif)
 
 # Client mode
 

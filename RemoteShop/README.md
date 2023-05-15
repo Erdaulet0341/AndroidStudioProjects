@@ -56,4 +56,4 @@ First icon of cart shooping_cart, after sending message icon will be clock, if s
 
 Admins can see all sellers and clients and can delete them
 
-![]()
+![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(16).gif)

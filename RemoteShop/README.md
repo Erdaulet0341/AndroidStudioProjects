@@ -3,7 +3,7 @@ Application for buying and selling any products for clients and sellers.
 Backend is in [django rest framework](https://github.com/Erdaulet0341/android-back). This django project unsafe(authorization is not with tokens, all passwords not hashed), because the main focus was allocated for android side, not are django side))))
 
 
-In this application 3 role, client, seller and admin. For full project used 11 activity, 24 fragment, 8 adapter and 8 data classes. For backend used 17 GET, 6 POST, 5 DELETE, 4 PUT requests.
+In this application 3 role, client, seller and admin. For full project used 11 activity, 24 fragment, 8 adapter and 8 data classes. For connecting to backend used 17 get, 6 post, 5 delete, 4 put requests.
 
 # Welcome page
 

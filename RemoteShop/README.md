@@ -20,7 +20,7 @@ When client clicked add comment button opened fragment with one input view and a
 
 ![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(17).gif)
 
-3) All products. In this page client can filter products by category, company and price from min to max. Sort products by price.
+3) All products. In this page client can filter products by category, company and price from min to max. Sort products by price and search by name.
 
 ![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(18).gif)
 

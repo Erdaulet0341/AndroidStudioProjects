@@ -38,19 +38,19 @@ First icon of cart shooping_cart, after sending message icon will be clock, if s
 
 1) Home page. List of seller products. On the top seacrh view for searching products. After clicking product opened product details page. In this page seller edit product.
 
-![]()
+![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(12).gif)
 
 2) Add product. Seller added product only admins created categories.
 
-![]()
+![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(15).gif)
 
 3) Profile. In profile page client can change username, email, sompany name and password.
 
-![]()
+![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(14).gif)
 
 4) Messages(orders). Displayed messages which clients send to your products.
 
-![]()
+![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(14).gif)
 
 # Admin mode
 

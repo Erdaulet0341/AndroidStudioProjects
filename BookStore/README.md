@@ -1,6 +1,7 @@
 # Book store
 All books stored in [room](https://developer.android.com/training/data-storage/room) database.
-In project 2 mode, Admina and User
+
+In project 2 mode, Admin and User.
 
 
 # Welcome page, Sign in, Sign up:

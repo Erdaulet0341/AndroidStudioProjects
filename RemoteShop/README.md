@@ -13,29 +13,29 @@ In this application 3 role, client, seller and admin. For full project used 11 a
 
 1) Home page. In this page clients see all products of sellers, popular products and products by category.
 
-![]()
+![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(19).gif)
 
 2) Product details. In this page name, price, description, company name(seller), rating, comments and add to like, add to cart buttons, add comment buttons.
 When client clicked add comment button opened fragment with one input view and autocomplete input view. After adding commect and rating changed rating of this product.
 
-![]()
+![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(17).gif)
 
-3) All products. In this page client can filter products by category, company and price from min to max. Sort products by price.
+3) All products. In this page client can filter products by category, company and price from min to max. Sort products by price and search by name.
 
-![]()
+![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(18).gif)
 
 4) Liked products. Client can add products to liked products.
 
-![]()
+![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(20).gif)
 
 5) Cart. If client added products to the cart this products is displayed in this page. From this page client can send message(order) for the seller.
 First icon of cart shooping_cart, after sending message icon will be clock, if seller accepted this order icon of this cart changed to check else to block.
 
-![]()
+![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(21).gif)
 
 6) Profile and setting pages. In profile page client can change username, email, city and password. In setting page terms to use, help, privacy policy pages and log out button.
 
-![]()
+![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(22).gif)
 
 # Seller mode
 

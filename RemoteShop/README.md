@@ -38,7 +38,7 @@ First icon of cart shooping_cart, after sending message icon will be clock, if s
 
 1) Home page. List of seller products. On the top seacrh view for searching products. After clicking product opened product details page. In this page seller edit product.
 
-1[]()
+![]()
 
 2) Add product. Seller added product only admins created categories.
 
@@ -46,9 +46,9 @@ First icon of cart shooping_cart, after sending message icon will be clock, if s
 
 3) Profile. In profile page client can change username, email, sompany name and password.
 
-1[]()
+![]()
 
-4) Messages(orders). Displayed messages which client send to your products.
+4) Messages(orders). Displayed messages which clients send to your products.
 
 ![]()
 

@@ -46,7 +46,7 @@ First icon of cart shooping_cart, after sending message icon will be clock, if s
 
 3) Profile. In profile page client can change username, email, sompany name and password.
 
-![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(14).gif)
+![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/RemoteShop/Readme/ezgif.com-resize%20(13).gif)
 
 4) Messages(orders). Displayed messages which clients send to your products.
 

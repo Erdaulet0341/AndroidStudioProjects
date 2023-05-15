@@ -4,8 +4,8 @@ For this project news get from [API](https://newsapi.org/)
 In this poject 3 pages.
 
 # 1. List of news
-For list of news used Recycler view and one of the item have image, date, title, discription author of publication.
-Have bottom navigation view, drawer layout and navigation view.
+For list of news used Recycler view and one of the item have image, date, title, discreption author of publication.
+Have button navigation view, drawer layout and navigation view.
 
 ![](https://github.com/Erdaulet0341/AndroidStudioProjects/blob/master/NewsUs/Readme/ezgif.com-resize%20(10).gif)
 
